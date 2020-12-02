@@ -6,9 +6,18 @@
 #define HUFFMANALGORITHM_TREE_H
 
 
-class tree {
+struct HuffmanTree {
+    char symbol;
+    int occurrences;
+    HuffmanTree *left, *right;
 
+    HuffmanTree(int occurrences,)
 };
 
+struct compareHuffmanTrees {
+    bool operator()(HuffmanTree *left, HuffmanTree *right) {
+        return (left->occurrences > right->occurrences);
+    }
+};
 
 #endif //HUFFMANALGORITHM_TREE_H
