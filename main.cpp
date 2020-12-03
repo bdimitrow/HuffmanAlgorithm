@@ -5,7 +5,7 @@
 
 int main() {
     const char *str = "aaabbcddeeee";
-    std::priority_queue<HuffmanTree*, std::vector<HuffmanTree *>, compareHuffmanTrees> mht = createHuffmanForest(str);
+//    std::priority_queue<HuffmanTree*, std::vector<HuffmanTree *>, compareHuffmanTrees> mht = createHuffmanForest(str);
     std::cout << " da";
 
     return 0;
