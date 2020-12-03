@@ -9,13 +9,23 @@ HuffmanTree::HuffmanTree() {
     root = nullptr;
 }
 
-HuffmanTree::HuffmanTree(std::priority_queue<HuffmanTreeNode*> forest) {
+HuffmanTree::HuffmanTree(char data, int occur) {
+    root = new HuffmanTreeNode(data, occur);
+}
+
+HuffmanTree::HuffmanTree(HuffmanTree *l, HuffmanTree *r) {
+    HuffmanTreeNode *add = new HuffmanTreeNode(l->root, r->root);
+    root = add;
+}
+
+
+HuffmanTree::HuffmanTree(std::priority_queue<HuffmanTreeNode *, std::vector<HuffmanTreeNode *>, compareHuffmanTree> forest) {
     while (forest.size() > 1) {
         HuffmanTreeNode *left = forest.top();
         forest.pop();
         HuffmanTreeNode *right = forest.top();
         forest.pop();
-        auto toPush = new HuffmanTreeNode(left,right);
+        HuffmanTreeNode *toPush = new HuffmanTreeNode(left,right);
         forest.push(toPush);
     }
     root = forest.top();
@@ -62,5 +72,6 @@ HuffmanTree::HuffmanTreeNode *HuffmanTree::copyHuffmanTreeNode(HuffmanTree::Huff
 
     return copied;
 }
+
 
 
