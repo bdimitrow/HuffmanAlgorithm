@@ -45,6 +45,8 @@ public:
         }
     };
 
+
+
 public:
     HuffmanTree();
 
@@ -60,7 +62,7 @@ public:
 
     ~HuffmanTree();
 
-    HuffmanTreeNode *rootGetter() { return root; }
+    inline HuffmanTreeNode *getRoot() { return root; }
 
 
 

@@ -4,30 +4,21 @@
 #include <cstring>
 
 
-void printCode(HuffmanTree::HuffmanTreeNode *root, std::string str){
-    if(root->left){
-        printCode(root->left, str+'0');
-    }
-    if(root->right){
-        printCode(root->right,str+'1');
-    }
-    if(root != nullptr && root->left == nullptr && root->right == nullptr) {
-        std::cout << root->symbol << " : ";
-        std::cout << str << std::endl;
-    }
-
-}
-
 int main() {
     const char *str = "aaabbcddeeee";
     std::cout << " da\n";
 
-    HuffmanTree tree;
     std::priority_queue<HuffmanTree::HuffmanTreeNode *, std::vector<HuffmanTree::HuffmanTreeNode *>, HuffmanTree::compareHuffmanTree> mht = createHuffmanForest(str);
     HuffmanTree *tree2 = new HuffmanTree(mht);
-    int arr[] = {};
-    HuffmanTree::HuffmanTreeNode *t = tree2->rootGetter();
-    printCode(t, "");
+
+    HuffmanTree::HuffmanTreeNode *t = tree2->getRoot();
+//    printCode(t, "");
+    std::vector<std::pair<char,std::string>> pairVector;
+
+    makePairs(t,"", pairVector);
+    for(auto i : pairVector){
+        std::cout << i.first << " : " << i.second << std::endl;
+    }
     std::cout << " dada";
     return 0;
 }
