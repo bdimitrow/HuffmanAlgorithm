@@ -10,7 +10,7 @@
 
 
 class HuffmanTree {
-public:
+private:
     struct HuffmanTreeNode {
         char symbol;
         int occurrences;
@@ -64,7 +64,8 @@ public:
 
     inline HuffmanTreeNode *getRoot() { return root; }
 
-
+    friend std::priority_queue<HuffmanTree::HuffmanTreeNode *, std::vector<HuffmanTree::HuffmanTreeNode *>, HuffmanTree::compareHuffmanTree>
+    createHuffmanForest(const char *cstr);
 
 private:
     void clear(HuffmanTreeNode *);
