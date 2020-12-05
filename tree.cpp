@@ -18,18 +18,33 @@ HuffmanTree::HuffmanTree(HuffmanTree *l, HuffmanTree *r) {
     root = add;
 }
 
+HuffmanTree::HuffmanTree(const char *str) {
+    std::priority_queue<HuffmanTreeNode *, std::vector<HuffmanTreeNode *>, compareHuffmanTree> forest;
 
-HuffmanTree::HuffmanTree(std::priority_queue<HuffmanTreeNode *, std::vector<HuffmanTreeNode *>, compareHuffmanTree> forest) {
+    int occurs[256] = {0};
+    while (*str) {
+        occurs[(char) *str++]++;
+    }
+
+    // Pushing all symbols in priority queue.
+    for (int i = 0; i < 256; ++i) {
+        if (occurs[i] != 0) {
+            HuffmanTreeNode *toAddNode = new HuffmanTree::HuffmanTreeNode((char) i, occurs[i]);
+            forest.push(toAddNode);
+        }
+    }
+
     while (forest.size() > 1) {
         HuffmanTreeNode *left = forest.top();
         forest.pop();
         HuffmanTreeNode *right = forest.top();
         forest.pop();
-        HuffmanTreeNode *toPush = new HuffmanTreeNode(left,right);
+        HuffmanTreeNode *toPush = new HuffmanTreeNode(left, right);
         forest.push(toPush);
     }
     root = forest.top();
 }
+
 
 HuffmanTree::HuffmanTree(const HuffmanTree &other) {
     copy(other);
@@ -73,25 +88,37 @@ HuffmanTree::HuffmanTreeNode *HuffmanTree::copyHuffmanTreeNode(HuffmanTree::Huff
     return copied;
 }
 
-std::priority_queue<HuffmanTree::HuffmanTreeNode *, std::vector<HuffmanTree::HuffmanTreeNode *>, HuffmanTree::compareHuffmanTree>
-createHuffmanForest(const char *cstr) {
-    // Here the tree will me sorted from minimum occurrences -> maximum
-    std::priority_queue<HuffmanTree::HuffmanTreeNode *, std::vector<HuffmanTree::HuffmanTreeNode *>, HuffmanTree::compareHuffmanTree> minimalQueue;
+void HuffmanTree::printCode() {
+    printCode(root, "");
+}
 
-    // Extracting the number of occurences of each symbol according to the ASCII.
-    int occurs[256] = {0};
-    while (*cstr) {
-        occurs[(char) *cstr++]++;
+void HuffmanTree::printCode(HuffmanTree::HuffmanTreeNode *current, std::string str) {
+    if (current->left) {
+        printCode(current->left, str + '0');
     }
-
-    // Pushing all symbols in priority queue.
-    for (int i = 0; i < 256; ++i) {
-        if (occurs[i] != 0) {
-            HuffmanTree::HuffmanTreeNode *toAddNode = new HuffmanTree::HuffmanTreeNode((char) i, occurs[i]);
-            minimalQueue.push(toAddNode);
-        }
+    if (current->right) {
+        printCode(current->right, str + '1');
     }
+    if (current != nullptr && current->left == nullptr && current->right == nullptr) {
+        std::cout << current->symbol << " : ";
+        std::cout << str << std::endl;
+    }
+}
 
-    return minimalQueue;
+void HuffmanTree::makePairs(std::vector<std::pair<char, std::string>> &vec) {
+    makePairs(root, "", vec);
+}
+
+void HuffmanTree::makePairs(HuffmanTree::HuffmanTreeNode *current, std::string str,
+                            std::vector<std::pair<char, std::string>> &vec) {
+    if (current->left) {
+        makePairs(current->left, str + '0', vec);
+    }
+    if (current->right) {
+        makePairs(current->right, str + '1', vec);
+    }
+    if (current != nullptr && current->left == nullptr && current->right == nullptr) {
+        vec.push_back(std::make_pair(current->symbol, str));
+    }
 }
 

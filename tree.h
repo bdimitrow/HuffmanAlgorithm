@@ -34,11 +34,8 @@ private:
         }
     };
 
-private:
     HuffmanTreeNode *root;
 
-
-public:
     struct compareHuffmanTree {
         bool operator()(HuffmanTreeNode *left, HuffmanTreeNode *right) {
             return left->occurrences > right->occurrences;
@@ -46,15 +43,14 @@ public:
     };
 
 
-
 public:
     HuffmanTree();
 
     HuffmanTree(char, int);
 
-    HuffmanTree(HuffmanTree *, HuffmanTree *);
+    HuffmanTree(const char *str);
 
-    explicit HuffmanTree(std::priority_queue<HuffmanTreeNode *, std::vector<HuffmanTreeNode *>, compareHuffmanTree>);
+    HuffmanTree(HuffmanTree *, HuffmanTree *);
 
     HuffmanTree(const HuffmanTree &);
 
@@ -62,10 +58,13 @@ public:
 
     ~HuffmanTree();
 
+    ////////////////////////////////////////////////
+
     inline HuffmanTreeNode *getRoot() { return root; }
 
-    friend std::priority_queue<HuffmanTree::HuffmanTreeNode *, std::vector<HuffmanTree::HuffmanTreeNode *>, HuffmanTree::compareHuffmanTree>
-    createHuffmanForest(const char *cstr);
+    void printCode();
+
+    void makePairs(std::vector<std::pair<char, std::string>> &vec);
 
 private:
     void clear(HuffmanTreeNode *);
@@ -74,6 +73,9 @@ private:
 
     HuffmanTreeNode *copyHuffmanTreeNode(HuffmanTreeNode *);
 
+    void printCode(HuffmanTreeNode *, std::string);
+
+    void makePairs(HuffmanTreeNode *, std::string, std::vector<std::pair<char, std::string>> &);
 };
 
 
