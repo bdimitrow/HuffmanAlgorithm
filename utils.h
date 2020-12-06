@@ -11,7 +11,7 @@
 #include "tree.h"
 
 
-std::string readFile() {
+std::string readWholeFile() {
     std::string fileOpenName, fileContent;
 //    std::cout << "Enter the name of the file you'd like to compress: ";
 //    std::cin >> fileOpenName;
@@ -28,9 +28,10 @@ std::string readFile() {
     return fileContent;
 }
 
+/// converting a sentence to a binary sentence
 std::string convertStringToBinary(std::string realContent, std::vector<std::pair<char, std::string>> &codePairs) {
     std::string output;
-    int i =0;
+    int i = 0;
     while (realContent[i]) {
         for (auto el : codePairs) {
             if (realContent[i] == el.first) {
@@ -42,36 +43,41 @@ std::string convertStringToBinary(std::string realContent, std::vector<std::pair
     return output;
 }
 
-void saveBinaryStringToFile(std::string forStorage){
-    std::string compressedFileName;
-    std::cout << "Enter the name for the compressed file: ";
-    std::cin >> compressedFileName;
-
+/// saving the binary string to a file
+// @TODO how to store the tree??
+void saveStringToFile(std::string forStorage, std::string fileName) {
     std::ofstream out;
-    out.open(compressedFileName);
-    if(out.is_open()){
+    out.open("compressed.txt", std::ios::app);
+    if (out.is_open()) {
         out << forStorage;
         out.close();
     } else {
         std::cout << "Unable to open the file! \n";
     }
-
 }
 
+std::string vectorCodePairsToString(std::vector<std::pair<char, std::string>> &codePairs) {
+    std::string result;
+    for (auto el : codePairs) {
+        result += el.second;
+        result += el.first;
+    }
+    return result;
+}
 
-
-//
-//void makePairs(HuffmanTree::HuffmanTreeNode *root, std::string str, std::vector<std::pair<char, std::string>> &vec) {
-//    if (root->left) {
-//        makePairs(root->left, str + '0', vec);
-//    }
-//    if (root->right) {
-//        makePairs(root->right, str + '1', vec);
-//    }
-//    if (root != nullptr && root->left == nullptr && root->right == nullptr) {
-//        vec.push_back(std::make_pair(root->symbol, str));
-//    }
-//}
+std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string str) {
+    std::vector<std::pair<char, std::string>> result;
+    std::string code;
+    for (int i = 0; i < str.size(); ++i) {
+        if(str[i] == '0' || str[i] == '1'){
+            code += str[i];
+        }else {
+            result.push_back(std::make_pair(str[i], code));
+            code = "";
+        }
+    }
+    return result;
+}
 
 
 #endif //HUFFMANALGORITHM_UTILS_H

@@ -36,6 +36,7 @@ private:
 
     HuffmanTreeNode *root;
 
+    // used as a sorting function in the prority queue
     struct compareHuffmanTree {
         bool operator()(HuffmanTreeNode *left, HuffmanTreeNode *right) {
             return left->occurrences > right->occurrences;
@@ -48,9 +49,11 @@ public:
 
     HuffmanTree(char, int);
 
+    // building a huffman tree from the source file;
     HuffmanTree(const char *str);
 
-    HuffmanTree(HuffmanTree *, HuffmanTree *);
+    // @TODO to rebuilt the tree from the compressed file??
+    explicit HuffmanTree(std::vector<std::pair<char, std::string>> &);
 
     HuffmanTree(const HuffmanTree &);
 
@@ -64,7 +67,10 @@ public:
 
     void printCode();
 
-    void makePairs(std::vector<std::pair<char, std::string>> &vec);
+    void makePairs(std::vector<std::pair<char, std::string>> &);
+
+    // taking binary string and converting it to normal according to the tree;
+    std::string decode_file(std::string s);
 
 private:
     void clear(HuffmanTreeNode *);

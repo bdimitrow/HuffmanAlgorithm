@@ -13,10 +13,6 @@ HuffmanTree::HuffmanTree(char data, int occur) {
     root = new HuffmanTreeNode(data, occur);
 }
 
-HuffmanTree::HuffmanTree(HuffmanTree *l, HuffmanTree *r) {
-    HuffmanTreeNode *add = new HuffmanTreeNode(l->root, r->root);
-    root = add;
-}
 
 HuffmanTree::HuffmanTree(const char *str) {
     std::priority_queue<HuffmanTreeNode *, std::vector<HuffmanTreeNode *>, compareHuffmanTree> forest;
@@ -45,6 +41,32 @@ HuffmanTree::HuffmanTree(const char *str) {
     root = forest.top();
 }
 
+HuffmanTree::HuffmanTree(std::vector<std::pair<char, std::string>> &codePairs) {
+
+    HuffmanTreeNode *tree = new HuffmanTreeNode('`', 1);
+    HuffmanTreeNode *current = tree;
+    for (int i = 0; i < codePairs.size(); ++i) {
+        for (int j = 0; j < codePairs.at(i).second.length(); ++j) {
+            if (codePairs.at(i).second.at(j) == '0') {
+                if (current->left == nullptr) {
+                    current->left = new HuffmanTreeNode(codePairs.at(i).first, 0);
+                    current = current->left;
+                } else {
+                    current = current->left;
+                }
+            } else {
+                if (current->right == nullptr) {
+                    current->right = new HuffmanTreeNode(codePairs.at(i).first, 1);
+                    current = current->right;
+                } else {
+                    current = current->right;
+                }
+            }
+        }
+        current = tree;
+    }
+    root = tree;
+}
 
 HuffmanTree::HuffmanTree(const HuffmanTree &other) {
     copy(other);
@@ -121,4 +143,24 @@ void HuffmanTree::makePairs(HuffmanTree::HuffmanTreeNode *current, std::string s
         vec.push_back(std::make_pair(current->symbol, str));
     }
 }
+
+std::string HuffmanTree::decode_file(std::string s) {
+    std::string result = "";
+    HuffmanTreeNode *curr = root;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '0') {
+            curr = curr->left;
+        } else {
+            curr = curr->right;
+        }
+        // leaf node ? adding the symbol to the result string
+        if (curr->left == nullptr && curr->right == nullptr) {
+            result += curr->symbol;
+            curr = root;
+        }
+    }
+    return result + '\0';
+}
+
+
 

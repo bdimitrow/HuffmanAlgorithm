@@ -5,28 +5,54 @@
 #include <fstream>
 #include <sstream>
 
+
+
 int main() {
-    auto *t = new HuffmanTree(readFile().c_str());
+//    auto *t = new HuffmanTree(readWholeFile().c_str());
+//
+//
+//    std::vector<std::pair<char, std::string>> pairs;
+//    t->makePairs(pairs);
+////    std::cout << pairs.at(0).second.size();
+////
+//    auto *hf = new HuffmanTree(pairs);
+
+//    std::string str = readWholeFile();
+//    std::cout << "str: " << str << std::endl;
+//    saveStringToFile(convertStringToBinary(str, pairs));
+//
+//    std::string bina = convertStringToBinary(str, pairs);
+//
+//    std::string outa = t->decode_file(bina);
+//    std::cout << "encoded: " << bina << "\n";
+//    std::cout << "decoded: " << outa << "\n";
 //    t->printCode();
 
-    std::vector<std::pair<char, std::string>> pairs;
-    t->makePairs(pairs);
-    std::string str = readFile();
-    std::cout <<"str: " << str << std::endl;
+//    std::cout << "original: " << readWholeFile()<<std::endl;
+//    auto *treeRead = new HuffmanTree(readWholeFile().c_str());
+//    std::vector<std::pair<char, std::string>> pair;
+//    treeRead->makePairs(pair);
+//    std::string binary = convertStringToBinary(readWholeFile(),pair);
+//    std::cout << "encoded: " << binary << std::endl;
+//    std::string encodedTree = vectorCodePairsToString(pair);
+//    saveStringToFile(encodedTree+"\n","");
+//    saveStringToFile(binary, "");
+//    std::vector<std::pair<char, std::string>> rebuild = stringToVectorCodePairs(encodedTree);
+//    auto *rebuildTree = new HuffmanTree(rebuild);
+//    std::cout<<"restored: " << rebuildTree->decode_file(binary) << std::endl;
 
-    saveBinaryStringToFile(convertStringToBinary(str,pairs));
-
-//    int i =0;
-//    while (str[i]) {
-//        for (auto el : pairs) {
-//            if (str[i] == el.first) {
-//                output += el.second;
-//            }
-//        }
-//        ++i;
-//    }
-//
-//    std::cout << "output: " << output << std::endl;
+    std::ifstream in;
+    in.open("compressed.txt");
+    std::string str,str2,buffer;
+    std::getline(in, str);
+    while (std::getline(in, buffer)) {
+        str2 += '\n' + buffer;
+    }
+    std::cout << str;// << std::endl;
+    std::cout << str2 << std::endl;
+    std::cout << " dada";
+    return 0;
+}
 
 
 //    std::ofstream out;
@@ -46,29 +72,3 @@ int main() {
 //            str = ss.str();
 //        in.close();
 //    }
-////    std::cout << str << std::endl;
-//        tree = new HuffmanTree(str.c_str());
-//    tree->printCode();
-
-    //    const char *str = "aa a bbc dd ee ee";
-//    std::cout << " da\n";
-//
-//
-//    HuffmanTree *tree = new HuffmanTree(str);
-////    std::priority_queue<HuffmanTree::HuffmanTreeNode *, std::vector<HuffmanTree::HuffmanTreeNode *>, HuffmanTree::compareHuffmanTree> mht = createHuffmanForest(str);
-//////    createHuffmanForest(str);
-////
-////    HuffmanTree *tree2 = new HuffmanTree(mht);
-//
-////    HuffmanTree::HuffmanTreeNode *t = tree2->getRoot();
-//////    printCode(t, "");
-////    std::vector<std::pair<char,std::string>> pairVector;
-////
-////    makePairs(t,"", pairVector);
-////    for(auto i : pairVector){
-////        std::cout << i.first << " : " << i.second << std::endl;
-////    }
-//    tree->printCode();
-    std::cout << " dada";
-    return 0;
-}
