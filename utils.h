@@ -30,14 +30,20 @@ std::string readWholeFile(const std::string &fileOpenName) {
 
 void readFileForDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
     std::ifstream in;
-    std::string buffer, codePart;
+    std::string buffer, codePart, wholeContent;
+    std::string binary = "01";
     in.open(fileName);
     if (in.is_open()) {
-        std::getline(in, bintree);
-        while (std::getline(in, buffer)) {
-            codePart += '\n' + buffer;
+        std::ostringstream ss;
+        ss << in.rdbuf();
+        wholeContent = ss.str();
+        in.close();
+
+        int found = wholeContent.find_last_not_of(binary);
+        if (found != std::string::npos) {
+            code = wholeContent.substr(found + 1);
+            bintree = wholeContent.erase(found + 1);
         }
-        code = codePart.substr(1, codePart.size());
     } else {
         std::cout << "Unable to open the file\n";
     }
@@ -73,7 +79,7 @@ void saveStringToFile(const std::string &fileName, const std::string &forStorage
 void
 saveTreeAndBinaryToFile(const std::string &encodedTree, const std::string &forStorage, const std::string &fileName) {
     std::ofstream out;
-    out.open(fileName, std::ios::app);
+    out.open(fileName, std::ios::trunc);
     if (out.is_open()) {
         out << encodedTree;
         out << "\n";

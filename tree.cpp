@@ -159,7 +159,7 @@ std::string HuffmanTree::decode_file(std::string s) {
             curr = root;
         }
     }
-    return result + '\0';
+    return result;
 }
 
 

@@ -40,6 +40,7 @@ int main() {
 //    encode();
     decode();
 
+
     return 0;
 }
 
