@@ -5,70 +5,42 @@
 #include <fstream>
 #include <sstream>
 
+void encode() {
+    std::cout << "Enter the name of the file you'd like to compress: ";
+    std::string nameFileForCompress;
+    std::cin >> nameFileForCompress;
+    std::string fileContent = readWholeFile(nameFileForCompress);
+    HuffmanTree *tree = new HuffmanTree(fileContent.c_str());
+    std::vector<std::pair<char, std::string>> pairs;
+    tree->makePairs(pairs);
+    std::string pairsAsString = vectorCodePairsToString(pairs);
+    std::string binaryString = convertStringToBinary(fileContent, pairs);
+    std::cout << "Enter a name for the compressed file: ";
+    std::string nameCompressedFile;
+    std::cin >> nameCompressedFile;
+    saveTreeAndBinaryToFile(pairsAsString, binaryString, nameCompressedFile);
+}
 
+void decode() {
+    std::string fileName, hftree, code;
+    std::cout << "Enter the name of the file you'd like to decompress: ";
+    std::cin >> fileName;
+    readFileForDecompress(fileName, hftree, code);
+    std::vector<std::pair<char, std::string>> pairs = stringToVectorCodePairs(hftree);
+    HuffmanTree *decodedTree = new HuffmanTree(pairs);
+    std::string originalContent = decodedTree->decode_file(code);
+    std::cout << "Enter the name for the file with original content: ";
+    std::string fileNameDecompressed;
+    std::cin >> fileNameDecompressed;
+    saveStringToFile(fileNameDecompressed, originalContent);
+}
 
 int main() {
-//    auto *t = new HuffmanTree(readWholeFile().c_str());
-//
-//
-//    std::vector<std::pair<char, std::string>> pairs;
-//    t->makePairs(pairs);
-////    std::cout << pairs.at(0).second.size();
-////
-//    auto *hf = new HuffmanTree(pairs);
 
-//    std::string str = readWholeFile();
-//    std::cout << "str: " << str << std::endl;
-//    saveStringToFile(convertStringToBinary(str, pairs));
-//
-//    std::string bina = convertStringToBinary(str, pairs);
-//
-//    std::string outa = t->decode_file(bina);
-//    std::cout << "encoded: " << bina << "\n";
-//    std::cout << "decoded: " << outa << "\n";
-//    t->printCode();
+//    encode();
+    decode();
 
-//    std::cout << "original: " << readWholeFile()<<std::endl;
-//    auto *treeRead = new HuffmanTree(readWholeFile().c_str());
-//    std::vector<std::pair<char, std::string>> pair;
-//    treeRead->makePairs(pair);
-//    std::string binary = convertStringToBinary(readWholeFile(),pair);
-//    std::cout << "encoded: " << binary << std::endl;
-//    std::string encodedTree = vectorCodePairsToString(pair);
-//    saveStringToFile(encodedTree+"\n","");
-//    saveStringToFile(binary, "");
-//    std::vector<std::pair<char, std::string>> rebuild = stringToVectorCodePairs(encodedTree);
-//    auto *rebuildTree = new HuffmanTree(rebuild);
-//    std::cout<<"restored: " << rebuildTree->decode_file(binary) << std::endl;
-
-    std::ifstream in;
-    in.open("compressed.txt");
-    std::string str,str2,buffer;
-    std::getline(in, str);
-    while (std::getline(in, buffer)) {
-        str2 += '\n' + buffer;
-    }
-    std::cout << str;// << std::endl;
-    std::cout << str2 << std::endl;
-    std::cout << " dada";
     return 0;
 }
 
 
-//    std::ofstream out;
-//    out.open("testString.txt");
-//    if (out.is_open()) {
-//        out << "dada nee de s !, sd k\n";
-//        out.close();
-//    } else { std::cout << "unable to open\n"; }
-
-//    HuffmanTree *tree;
-//    std::string str;
-//    std::ifstream in;
-//    in.open("testString.txt");
-//    if (in.is_open()) {
-//            std::ostringstream ss;
-//            ss << in.rdbuf();
-//            str = ss.str();
-//        in.close();
-//    }

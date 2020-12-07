@@ -11,21 +11,36 @@
 #include "tree.h"
 
 
-std::string readWholeFile() {
-    std::string fileOpenName, fileContent;
-//    std::cout << "Enter the name of the file you'd like to compress: ";
-//    std::cin >> fileOpenName;
+std::string readWholeFile(const std::string &fileOpenName) {
+    std::string fileContent;
 
     std::ifstream in;
-    in.open("testString.txt"/*fileOpenName*/);
+    in.open(fileOpenName);
     if (in.is_open()) {
         std::ostringstream ss;
         ss << in.rdbuf(); //reading the file into the stream
         fileContent = ss.str();
         in.close();
-    } else { std::cout << "Unable to open the file!"; }
+    } else {
+        std::cout << "Unable to open the file!\n";
+    }
 
     return fileContent;
+}
+
+void readFileForDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
+    std::ifstream in;
+    std::string buffer, codePart;
+    in.open(fileName);
+    if (in.is_open()) {
+        std::getline(in, bintree);
+        while (std::getline(in, buffer)) {
+            codePart += '\n' + buffer;
+        }
+        code = codePart.substr(1, codePart.size());
+    } else {
+        std::cout << "Unable to open the file\n";
+    }
 }
 
 /// converting a sentence to a binary sentence
@@ -43,12 +58,25 @@ std::string convertStringToBinary(std::string realContent, std::vector<std::pair
     return output;
 }
 
-/// saving the binary string to a file
-// @TODO how to store the tree??
-void saveStringToFile(std::string forStorage, std::string fileName) {
+void saveStringToFile(const std::string &fileName, const std::string &forStorage) {
     std::ofstream out;
-    out.open("compressed.txt", std::ios::app);
+    out.open(fileName, std::ios::trunc);
     if (out.is_open()) {
+        out << forStorage;
+        out.close();
+    } else {
+        std::cout << "Unable to open the file!\n";
+    }
+}
+
+/// saving the binary string to a file
+void
+saveTreeAndBinaryToFile(const std::string &encodedTree, const std::string &forStorage, const std::string &fileName) {
+    std::ofstream out;
+    out.open(fileName, std::ios::app);
+    if (out.is_open()) {
+        out << encodedTree;
+        out << "\n";
         out << forStorage;
         out.close();
     } else {
@@ -69,9 +97,9 @@ std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string st
     std::vector<std::pair<char, std::string>> result;
     std::string code;
     for (int i = 0; i < str.size(); ++i) {
-        if(str[i] == '0' || str[i] == '1'){
+        if (str[i] == '0' || str[i] == '1') {
             code += str[i];
-        }else {
+        } else {
             result.push_back(std::make_pair(str[i], code));
             code = "";
         }
