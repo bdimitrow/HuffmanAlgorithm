@@ -30,8 +30,7 @@ std::string readWholeFile(const std::string &fileOpenName) {
 
 void readFileForDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
     std::ifstream in;
-    std::string buffer, codePart, wholeContent;
-    std::string binary = "01";
+    std::string buffer, codePart, wholeContent, binary = "01";
     in.open(fileName);
     if (in.is_open()) {
         std::ostringstream ss;
@@ -46,6 +45,25 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
         }
     } else {
         std::cout << "Unable to open the file\n";
+    }
+}
+
+void readForDebugOption(const std::string &fileName, std::string &code) {
+    std::ifstream in;
+    std::string content, binary = "01";
+    in.open(fileName);
+    if (in.is_open()) {
+        std::ostringstream ss;
+        ss << in.rdbuf();
+        content = ss.str();
+        in.close();
+
+        int pos = content.find_last_not_of(binary);
+        if (pos != std::string::npos) {
+            code = content.substr(pos + 1);
+        }
+    } else {
+        std::cout << "Unable to open the file! \n";
     }
 }
 

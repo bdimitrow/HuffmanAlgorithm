@@ -62,6 +62,7 @@ public:
     ~HuffmanTree();
 
     ////////////////////////////////////////////////
+    inline bool isLeaf(HuffmanTreeNode *curr) { return curr->left == nullptr && curr->right == nullptr; }
 
     inline HuffmanTreeNode *getRoot() { return root; }
 
@@ -70,7 +71,7 @@ public:
     void makePairs(std::vector<std::pair<char, std::string>> &);
 
     // taking binary string and converting it to normal according to the tree;
-    std::string decode_file(std::string s);
+    std::string decode_string(std::string s);
 
 private:
     void clear(HuffmanTreeNode *);

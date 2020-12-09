@@ -144,8 +144,8 @@ void HuffmanTree::makePairs(HuffmanTree::HuffmanTreeNode *current, std::string s
     }
 }
 
-std::string HuffmanTree::decode_file(std::string s) {
-    std::string result = "";
+std::string HuffmanTree::decode_string(std::string s) {
+    std::string result;
     HuffmanTreeNode *curr = root;
     for (int i = 0; i < s.size(); i++) {
         if (s[i] == '0') {
@@ -154,7 +154,7 @@ std::string HuffmanTree::decode_file(std::string s) {
             curr = curr->right;
         }
         // leaf node ? adding the symbol to the result string
-        if (curr->left == nullptr && curr->right == nullptr) {
+        if (isLeaf(curr)) {
             result += curr->symbol;
             curr = root;
         }
