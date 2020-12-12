@@ -2,12 +2,14 @@
 // Created by bozhidar on 12/3/20.
 //
 
-#ifndef HUFFMANALGORITHM_UTILS_H
-#define HUFFMANALGORITHM_UTILS_H
+#ifndef HUFFMANALGORITHM_FILEUTILS_H
+#define HUFFMANALGORITHM_FILEUTILS_H
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cmath>
+#include <bitset>
 #include "tree.h"
 
 
@@ -48,6 +50,42 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
     }
 }
 
+std::string numToBinaryEightBits(const std::string& num) {
+    int number = 0;
+    for(auto el : num){
+        number = number*10 + (el - '0');
+    }
+    std::string result = std::bitset<8>(number).to_string();
+    return result;
+}
+
+void readFileForDecompressNumbers(const std::string &fileName, std::string &bintree, std::string &code) {
+    std::ifstream in;
+    std::string buffer, codePart, wholeContent, decimal = " 0123456789",codeNumbers;
+    in.open(fileName);
+    if (in.is_open()) {
+        std::ostringstream ss;
+        ss << in.rdbuf();
+        wholeContent = ss.str();
+        in.close();
+
+        int found = wholeContent.find_last_not_of(decimal);
+        if (found != std::string::npos) {
+            codeNumbers = wholeContent.substr(found + 1);
+            bintree = wholeContent.erase(found + 1);
+        }
+        while(codeNumbers != "") {
+            int pos = codeNumbers.find(' ');
+            std::string sinlgeNum = codeNumbers.substr(0,pos);
+            code += numToBinaryEightBits(sinlgeNum);
+            codeNumbers = codeNumbers.erase(0,pos+1);
+        }
+
+    } else {
+        std::cout << "Unable to open the file\n";
+    }
+}
+
 void readForDebugOption(const std::string &fileName, std::string &code) {
     std::ifstream in;
     std::string content, binary = "01";
@@ -67,20 +105,6 @@ void readForDebugOption(const std::string &fileName, std::string &code) {
     }
 }
 
-/// converting a sentence to a binary sentence
-std::string convertStringToBinary(std::string realContent, std::vector<std::pair<char, std::string>> &codePairs) {
-    std::string output;
-    int i = 0;
-    while (realContent[i]) {
-        for (auto el : codePairs) {
-            if (realContent[i] == el.first) {
-                output += el.second;
-            }
-        }
-        ++i;
-    }
-    return output;
-}
 
 void saveStringToFile(const std::string &fileName, const std::string &forStorage) {
     std::ofstream out;
@@ -108,28 +132,6 @@ saveTreeAndBinaryToFile(const std::string &encodedTree, const std::string &forSt
     }
 }
 
-std::string vectorCodePairsToString(std::vector<std::pair<char, std::string>> &codePairs) {
-    std::string result;
-    for (auto el : codePairs) {
-        result += el.second;
-        result += el.first;
-    }
-    return result;
-}
-
-std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string str) {
-    std::vector<std::pair<char, std::string>> result;
-    std::string code;
-    for (int i = 0; i < str.size(); ++i) {
-        if (str[i] == '0' || str[i] == '1') {
-            code += str[i];
-        } else {
-            result.push_back(std::make_pair(str[i], code));
-            code = "";
-        }
-    }
-    return result;
-}
 
 
-#endif //HUFFMANALGORITHM_UTILS_H
+#endif //HUFFMANALGORITHM_FILEUTILS_H

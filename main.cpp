@@ -1,28 +1,14 @@
 #include <iostream>
 #include "tree.h"
-#include "utils.h"
+#include "fileUtils.h"
+#include "stringUtils.h"
 #include <cstring>
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <bitset>
 
-void encode() {
-    std::cout << "Enter the name of the file you'd like to compress: ";
-    std::string nameFileForCompress;
-    std::cin >> nameFileForCompress;
-    std::string fileContent = readWholeFile(nameFileForCompress);
-    HuffmanTree *tree = new HuffmanTree(fileContent.c_str());
-    std::vector<std::pair<char, std::string>> pairs;
-    tree->makePairs(pairs);
-    std::string pairsAsString = vectorCodePairsToString(pairs);
-    std::string binaryString = convertStringToBinary(fileContent, pairs);
-    std::cout << "Enter a name for the compressed file: ";
-    std::string nameCompressedFile;
-    std::cin >> nameCompressedFile;
-    saveTreeAndBinaryToFile(pairsAsString, binaryString, nameCompressedFile);
-}
-
-void decode() {
+void decodeBinary() {
     std::string fileName, hftree, code;
     std::cout << "Enter the name of the file you'd like to decompress: ";
     std::cin >> fileName;
@@ -36,46 +22,83 @@ void decode() {
     saveStringToFile(fileNameDecompressed, originalContent);
 }
 
-int binaryToNumber(std::string binary) {
-    int num = 0;
-    for (int i = 0, power = 7; i < binary.size(); ++i, --power) {
-        if (binary[i] - '0' == 1)
-            num += pow(2, power);
-    }
-    return num;
+void encodeBinary() {
+    std::cout << "Enter the name of the file you'd like to compress: ";
+    std::string nameFileForCompress;
+    std::cin >> nameFileForCompress;
+    std::string fileContent = readWholeFile(nameFileForCompress);
+    HuffmanTree *tree = new HuffmanTree(fileContent.c_str());
+    std::vector<std::pair<char, std::string>> pairs;
+    tree->makePairs(pairs);
+    std::string pairsAsString = vectorCodePairsToString(pairs);
+    std::string binaryString = encodeString(fileContent, pairs);
+    std::cout << "Enter a name for the compressed file: ";
+    std::string nameCompressedFile;
+    std::cin >> nameCompressedFile;
+    saveTreeAndBinaryToFile(pairsAsString, binaryString, nameCompressedFile);
 }
 
-void debugOption() {
-    std::cout << "Enter the name of the file to be decompressed: ";
-    std::string fileName, code;
-    std::cin >> fileName;
-    readForDebugOption(fileName, code);
+void encodeDebug() {
+    std::cout << "Enter the name of the file to be compressed: ";
+    std::string fileNameForCompress, code;
+    std::cin >> fileNameForCompress;
+    std::string fileContent = readWholeFile(fileNameForCompress);
+    HuffmanTree *tree = new HuffmanTree(fileContent.c_str());
+    std::vector<std::pair<char, std::string>> pairs;
+    tree->makePairs(pairs);
+    std::string pairsAsString = vectorCodePairsToString(pairs);
+    std::string binaryContent = encodeString(fileContent, pairs);
 
-    int arrSize = code.size() / 8 + 1;
-    std::string arr[arrSize];
-    for (int i = 0, j = 0; i < code.size(); i += 8, ++j) {
-        std::string substirng = code.substr(i, 8);
-        arr[j] = substirng;
+
+    int arrSize = binaryContent.size() / 8 + 1;
+    std::string arrBinaryNums[arrSize];
+    for (int i = 0, j = 0; i < binaryContent.size(); i += 8, ++j) {
+        std::string subStirng = binaryContent.substr(i, 8);
+        arrBinaryNums[j] = subStirng;
     }
-    if (arr[arrSize - 1].size() < 8) {
-        int leadingZeros = 8 - arr[arrSize - 1].size();
+    if (arrBinaryNums[arrSize - 1].size() < 8) {
+        int leadingZeros = 8 - arrBinaryNums[arrSize - 1].size();
         for (int i = 0; i < leadingZeros; ++i) {
-            arr[arrSize - 1] = '0' + arr[arrSize - 1];
+            arrBinaryNums[arrSize - 1] = '0' + arrBinaryNums[arrSize - 1];
         }
     }
-    for (const auto &el :arr) {
-        std::cout << binaryToNumber(el) << " ";
+    std::string numbersForSaving;
+    for (const auto &el :arrBinaryNums) {
+        numbersForSaving += binaryToNumber(el) + " ";
     }
+
+    std::cout << "Enter a name for the compressed file: ";
+    std::string nameCompressedFile;
+    std::cin >> nameCompressedFile;
+    saveTreeAndBinaryToFile(pairsAsString, numbersForSaving, nameCompressedFile);
+
 }
+
+void decodeDebug() {
+    std::string fileName, hftree, code;
+    std::cout << "Enter the name of the file you'd like to decompress: ";
+    std::cin >> fileName;
+    readFileForDecompressNumbers(fileName, hftree, code);
+    std::vector<std::pair<char, std::string>> pairs = stringToVectorCodePairs(hftree);
+    HuffmanTree *decodedTree = new HuffmanTree(pairs);
+    std::string originalContent = decodedTree->decode_string(code);
+    std::cout << "Enter the name for the file with original content: ";
+    std::string fileNameDecompressed;
+    std::cin >> fileNameDecompressed;
+    saveStringToFile(fileNameDecompressed, originalContent);
+}
+
 
 int main() {
 
-    encode();
-//    decode();
-
-    debugOption();
+//    encodeBinary();
+//    decodeBinary();
+//
+//    encodeDebug();
+    decodeDebug();
 
     return 0;
 }
 
 
+// testString.txt
