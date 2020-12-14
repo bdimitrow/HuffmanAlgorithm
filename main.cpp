@@ -56,12 +56,7 @@ void encodeDebug() {
         std::string subStirng = binaryContent.substr(i, 8);
         arrBinaryNums[j] = subStirng;
     }
-    if (arrBinaryNums[arrSize - 1].size() < 8) {
-        int leadingZeros = 8 - arrBinaryNums[arrSize - 1].size();
-        for (int i = 0; i < leadingZeros; ++i) {
-            arrBinaryNums[arrSize - 1] = '0' + arrBinaryNums[arrSize - 1];
-        }
-    }
+
     std::string numbersForSaving;
     for (const auto &el :arrBinaryNums) {
         numbersForSaving += binaryToNumber(el) + " ";
@@ -78,7 +73,7 @@ void decodeDebug() {
     std::string fileName, hftree, code;
     std::cout << "Enter the name of the file you'd like to decompress: ";
     std::cin >> fileName;
-    readFileForDecompressNumbers(fileName, hftree, code);
+    readFileForDebugDecode(fileName, hftree, code);
     std::vector<std::pair<char, std::string>> pairs = stringToVectorCodePairs(hftree);
     HuffmanTree *decodedTree = new HuffmanTree(pairs);
     std::string originalContent = decodedTree->decode_string(code);
@@ -91,12 +86,20 @@ void decodeDebug() {
 
 int main() {
 
-//    encodeBinary();
-//    decodeBinary();
-//
-//    encodeDebug();
-    decodeDebug();
+    encodeBinary();
+    decodeBinary();
 
+//    encodeDebug();
+//    decodeDebug();
+//
+//    std::string bin = "00001110";
+//    std::cout << binaryToNumber(bin);
+
+//    std::string sinlgeNum = "00000";
+//    int pos = sinlgeNum.find('1');
+//    sinlgeNum = sinlgeNum.substr(pos);
+//
+//    std::cout << sinlgeNum;
     return 0;
 }
 

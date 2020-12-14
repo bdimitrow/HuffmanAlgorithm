@@ -5,12 +5,12 @@
 #ifndef HUFFMANALGORITHM_FILEUTILS_H
 #define HUFFMANALGORITHM_FILEUTILS_H
 
+#include "tree.h"
+#include "stringUtils.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <cmath>
-#include <bitset>
-#include "tree.h"
 
 
 std::string readWholeFile(const std::string &fileOpenName) {
@@ -50,18 +50,11 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
     }
 }
 
-std::string numToBinaryEightBits(const std::string& num) {
-    int number = 0;
-    for(auto el : num){
-        number = number*10 + (el - '0');
-    }
-    std::string result = std::bitset<8>(number).to_string();
-    return result;
-}
 
-void readFileForDecompressNumbers(const std::string &fileName, std::string &bintree, std::string &code) {
+
+void readFileForDebugDecode(const std::string &fileName, std::string &bintree, std::string &code) {
     std::ifstream in;
-    std::string buffer, codePart, wholeContent, decimal = " 0123456789",codeNumbers;
+    std::string buffer, codePart, wholeContent, decimal = " 0123456789", codeNumbers, sinlgeNum;
     in.open(fileName);
     if (in.is_open()) {
         std::ostringstream ss;
@@ -74,19 +67,27 @@ void readFileForDecompressNumbers(const std::string &fileName, std::string &bint
             codeNumbers = wholeContent.substr(found + 1);
             bintree = wholeContent.erase(found + 1);
         }
-        while(codeNumbers != "") {
+        // @TODO remove leading zeros from last number
+        while (codeNumbers != "") {
             int pos = codeNumbers.find(' ');
-            std::string sinlgeNum = codeNumbers.substr(0,pos);
-            code += numToBinaryEightBits(sinlgeNum);
-            codeNumbers = codeNumbers.erase(0,pos+1);
+            sinlgeNum = codeNumbers.substr(0, pos);
+            codeNumbers = codeNumbers.erase(0, pos + 1);
+            if (codeNumbers != "") {
+                code += numToBinaryEightBits(sinlgeNum);
+            }
         }
+        // remove leading zeros;
+        int pos = sinlgeNum.find('1');
+        sinlgeNum = sinlgeNum.substr(pos);
+
+        code += numToBinaryEightBits(sinlgeNum);
 
     } else {
         std::cout << "Unable to open the file\n";
     }
 }
 
-void readForDebugOption(const std::string &fileName, std::string &code) {
+void readForDebugEncode(const std::string &fileName, std::string &code) {
     std::ifstream in;
     std::string content, binary = "01";
     in.open(fileName);
@@ -118,12 +119,11 @@ void saveStringToFile(const std::string &fileName, const std::string &forStorage
 }
 
 /// saving the binary string to a file
-void
-saveTreeAndBinaryToFile(const std::string &encodedTree, const std::string &forStorage, const std::string &fileName) {
+void saveTreeAndBinaryToFile(const std::string &tree, const std::string &forStorage, const std::string &fileName) {
     std::ofstream out;
     out.open(fileName, std::ios::trunc);
     if (out.is_open()) {
-        out << encodedTree;
+        out << tree;
         out << "\n";
         out << forStorage;
         out.close();
@@ -131,7 +131,6 @@ saveTreeAndBinaryToFile(const std::string &encodedTree, const std::string &forSt
         std::cout << "Unable to open the file! \n";
     }
 }
-
 
 
 #endif //HUFFMANALGORITHM_FILEUTILS_H

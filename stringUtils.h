@@ -10,6 +10,7 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <bitset>
 
 /// converting a sentence to a binary sentence
 std::string encodeString(std::string realContent, std::vector<std::pair<char, std::string>> &codePairs) {
@@ -42,7 +43,7 @@ std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string st
     std::string code;
     for (int i = 0; i < str.size(); ++i) {
         if (str[i] == '`' && str[i + 2]) {
-            result.push_back(std::make_pair(str[i+1], code));
+            result.push_back(std::make_pair(str[i + 1], code));
             code = "";
             i += 2;
         } else {
@@ -55,15 +56,25 @@ std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string st
 std::string binaryToNumber(std::string binary) {
     std::string result;
     int num = 0;
-    for (int i = 0, power = 7; i < binary.size(); ++i, --power) {
-        if (binary[i] - '0' == 1)
+    for (int i = binary.size() - 1, power = 0; i >= 0; --i, ++power) {
+        if (binary[i] == '1') {
             num += pow(2, power);
+        }
     }
     while (num) {
         result += num % 10 + '0';
         num /= 10;
     }
     std::reverse(result.begin(), result.end());
+    return result;
+}
+
+std::string numToBinaryEightBits(const std::string &num) {
+    int number = 0;
+    for (auto el : num) {
+        number = number * 10 + (el - '0');
+    }
+    std::string result = std::bitset<8>(number).to_string();
     return result;
 }
 

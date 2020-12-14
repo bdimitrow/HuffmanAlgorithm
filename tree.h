@@ -52,7 +52,6 @@ public:
     // building a huffman tree from the source file;
     HuffmanTree(const char *str);
 
-    // @TODO to rebuilt the tree from the compressed file??
     explicit HuffmanTree(std::vector<std::pair<char, std::string>> &);
 
     HuffmanTree(const HuffmanTree &);
