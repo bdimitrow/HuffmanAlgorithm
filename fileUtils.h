@@ -51,9 +51,9 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
 }
 
 
-
 void readFileForDebugDecode(const std::string &fileName, std::string &bintree, std::string &code) {
     std::ifstream in;
+    std::string lastSize;
     std::string buffer, codePart, wholeContent, decimal = " 0123456789", codeNumbers, sinlgeNum;
     in.open(fileName);
     if (in.is_open()) {
@@ -66,46 +66,27 @@ void readFileForDebugDecode(const std::string &fileName, std::string &bintree, s
         if (found != std::string::npos) {
             codeNumbers = wholeContent.substr(found + 1);
             bintree = wholeContent.erase(found + 1);
+            lastSize = bintree.substr(0, 1);
+            bintree = bintree.substr(1);
         }
-        // @TODO remove leading zeros from last number
         while (codeNumbers != "") {
             int pos = codeNumbers.find(' ');
             sinlgeNum = codeNumbers.substr(0, pos);
             codeNumbers = codeNumbers.erase(0, pos + 1);
             if (codeNumbers != "") {
-                code += numToBinaryEightBits(sinlgeNum);
+                code += decimalToBinary(sinlgeNum);
             }
         }
-        // remove leading zeros;
-        int pos = sinlgeNum.find('1');
-        sinlgeNum = sinlgeNum.substr(pos);
-
-        code += numToBinaryEightBits(sinlgeNum);
+        sinlgeNum = decimalToBinary(sinlgeNum);
+        if (sinlgeNum.size() > (lastSize[0] - '0')) {
+            sinlgeNum = sinlgeNum.substr(8 - (lastSize[0] - '0'));
+        }
+        code += sinlgeNum;
 
     } else {
         std::cout << "Unable to open the file\n";
     }
 }
-
-void readForDebugEncode(const std::string &fileName, std::string &code) {
-    std::ifstream in;
-    std::string content, binary = "01";
-    in.open(fileName);
-    if (in.is_open()) {
-        std::ostringstream ss;
-        ss << in.rdbuf();
-        content = ss.str();
-        in.close();
-
-        int pos = content.find_last_not_of(binary);
-        if (pos != std::string::npos) {
-            code = content.substr(pos + 1);
-        }
-    } else {
-        std::cout << "Unable to open the file! \n";
-    }
-}
-
 
 void saveStringToFile(const std::string &fileName, const std::string &forStorage) {
     std::ofstream out;
@@ -131,6 +112,5 @@ void saveTreeAndBinaryToFile(const std::string &tree, const std::string &forStor
         std::cout << "Unable to open the file! \n";
     }
 }
-
 
 #endif //HUFFMANALGORITHM_FILEUTILS_H

@@ -12,70 +12,106 @@
 #include <algorithm>
 #include <bitset>
 
+/**
+ * @fn std::string encodeString(std::string realContent, std::vector<std::pair<char, std::string>> &codePairs)
+ * This function accepts string and vector of pairs(char, string) as arguments. The string in the pair is the binary
+ * code for the char. The result is a binary sequence of the real content.
+ * @param std::string realContent
+ * @param std::vector<std::pair<char, std::string>> &codePairs
+ * @return std::string binarySequence
+ */
 /// converting a sentence to a binary sentence
 std::string encodeString(std::string realContent, std::vector<std::pair<char, std::string>> &codePairs) {
-    std::string output;
+    std::string binarySequence;
     int i = 0;
     while (realContent[i]) {
         for (const auto &el : codePairs) {
             if (realContent[i] == el.first) {
-                output += el.second;
+                binarySequence += el.second;
             }
         }
         ++i;
     }
-    return output;
+
+    return binarySequence;
 }
 
+/**
+ * @fn Tranforming vector of pairs into a string.
+ * @param std::vector<std::pair<char, std::string>> codePairs
+ * @return std::string pairStr
+ */
 std::string vectorCodePairsToString(std::vector<std::pair<char, std::string>> &codePairs) {
-    std::string result;
+    std::string pairStr;
     for (const auto &el : codePairs) {
-        result += el.second;
-        result += '`';
-        result += el.first;
-        result += '`';
+        pairStr += el.second;
+        pairStr += '`';
+        pairStr += el.first;
+        pairStr += '`';
     }
-    return result;
+
+    return pairStr;
 }
 
-std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string str) {
-    std::vector<std::pair<char, std::string>> result;
+/**
+ * @fn Accepting a string as argument and transforms it into a vector of pairs(char-binary sequence).
+ * @param std::string pairStr
+ * @return std::vector<std::pair<char, std::string>> codePairs
+ */
+std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string pairStr) {
+    std::vector<std::pair<char, std::string>> codePairs;
     std::string code;
-    for (int i = 0; i < str.size(); ++i) {
-        if (str[i] == '`' && str[i + 2]) {
-            result.push_back(std::make_pair(str[i + 1], code));
+    for (int i = 0; i < pairStr.size(); ++i) {
+        // added in order to be able to encode 0s and 1s;
+        if (pairStr[i] == '`' && pairStr[i + 2]) {
+            codePairs.push_back(std::make_pair(pairStr[i + 1], code));
             code = "";
             i += 2;
         } else {
-            code += str[i];
+            code += pairStr[i];
         }
     }
-    return result;
+
+    return codePairs;
 }
 
-std::string binaryToNumber(std::string binary) {
-    std::string result;
-    int num = 0;
+/**
+ * @fn Transforming a string(storing binary number) into a string(storing a decimal number).
+ * @example "01111" -> "15"
+ * @param std::string binary
+ * @return std::string decimal
+ */
+std::string binaryToDecimal(std::string binary) {
+    std::string decimal;
+    int number = 0;
     for (int i = binary.size() - 1, power = 0; i >= 0; --i, ++power) {
         if (binary[i] == '1') {
-            num += pow(2, power);
+            number += pow(2, power);
         }
     }
-    while (num) {
-        result += num % 10 + '0';
-        num /= 10;
+    while (number) {
+        decimal += (number % 10 + '0');
+        number /= 10;
     }
-    std::reverse(result.begin(), result.end());
-    return result;
+    std::reverse(decimal.begin(), decimal.end());
+
+    return decimal;
 }
 
-std::string numToBinaryEightBits(const std::string &num) {
+/**
+ * @fn Transforming a string(storing a decimal number) into a string(storing a binary number - 8 bits long).
+ * @example "15" -> "00001111"
+ * @param std::string decimal
+ * @result std::string binary
+ */
+std::string decimalToBinary(const std::string &binary) {
     int number = 0;
-    for (auto el : num) {
-        number = number * 10 + (el - '0');
+    for (auto character : binary) {
+        number = number * 10 + (character - '0');
     }
-    std::string result = std::bitset<8>(number).to_string();
-    return result;
+    std::string decimal = std::bitset<8>(number).to_string();
+
+    return decimal;
 }
 
 #endif //HUFFMANALGORITHM_STRINGUTILS_H

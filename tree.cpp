@@ -161,6 +161,3 @@ std::string HuffmanTree::decode_string(std::string s) {
     }
     return result;
 }
-
-
-

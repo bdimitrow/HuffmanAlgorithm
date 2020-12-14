@@ -59,13 +59,26 @@ void encodeDebug() {
 
     std::string numbersForSaving;
     for (const auto &el :arrBinaryNums) {
-        numbersForSaving += binaryToNumber(el) + " ";
+        numbersForSaving += binaryToDecimal(el) + " ";
     }
 
     std::cout << "Enter a name for the compressed file: ";
     std::string nameCompressedFile;
     std::cin >> nameCompressedFile;
-    saveTreeAndBinaryToFile(pairsAsString, numbersForSaving, nameCompressedFile);
+//    saveTreeAndBinaryToFile(pairsAsString, numbersForSaving, nameCompressedFile);
+
+    std::ofstream out;
+    out.open(nameCompressedFile, std::ios::trunc);
+    if (out.is_open()) {
+        out << binaryContent.size() % 8;
+        out << pairsAsString;
+        out << "\n";
+        out << numbersForSaving;
+        out.close();
+    } else {
+        std::cout << "Unable to open the file! \n";
+    }
+
 
 }
 
@@ -86,20 +99,14 @@ void decodeDebug() {
 
 int main() {
 
-    encodeBinary();
+//    encodeBinary();
     decodeBinary();
-
+//
 //    encodeDebug();
-//    decodeDebug();
-//
-//    std::string bin = "00001110";
-//    std::cout << binaryToNumber(bin);
+    decodeDebug();
 
-//    std::string sinlgeNum = "00000";
-//    int pos = sinlgeNum.find('1');
-//    sinlgeNum = sinlgeNum.substr(pos);
-//
-//    std::cout << sinlgeNum;
+
+
     return 0;
 }
 
