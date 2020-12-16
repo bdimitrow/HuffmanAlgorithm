@@ -114,4 +114,27 @@ std::string decimalToBinary(const std::string &binary) {
     return decimal;
 }
 
+/**
+ * @fn Takes a string consisting just of 0s and 1s. Splits the string into substrings of length == 8 and transforms this
+ * 8 bits binary number into decimal ones. Returns them as a string.
+ * @param std::string binaryContent
+ * @return std::string numericContent
+ */
+std::string contentAsNumbers(const std::string &binaryContent) {
+    int arrSize = binaryContent.size() / 8 + 1;
+    std::string arrBinaryNums[arrSize], numericContent;
+
+    for (int i = 0, j = 0; i < binaryContent.size(); i += 8, ++j) {
+        std::string subString = binaryContent.substr(i, 8);
+        arrBinaryNums[j] = subString;
+    }
+
+    for (const auto &el :arrBinaryNums) {
+        numericContent += binaryToDecimal(el) + " ";
+    }
+
+    return numericContent;
+}
+
+
 #endif //HUFFMANALGORITHM_STRINGUTILS_H

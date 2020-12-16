@@ -51,7 +51,7 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
 }
 
 
-void readFileForDebugDecode(const std::string &fileName, std::string &bintree, std::string &code) {
+void readFileForDebugDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
     std::ifstream in;
     std::string lastSize;
     std::string buffer, codePart, wholeContent, decimal = " 0123456789", codeNumbers, sinlgeNum;
@@ -96,20 +96,6 @@ void saveStringToFile(const std::string &fileName, const std::string &forStorage
         out.close();
     } else {
         std::cout << "Unable to open the file!\n";
-    }
-}
-
-/// saving the binary string to a file
-void saveTreeAndBinaryToFile(const std::string &tree, const std::string &forStorage, const std::string &fileName) {
-    std::ofstream out;
-    out.open(fileName, std::ios::trunc);
-    if (out.is_open()) {
-        out << tree;
-        out << "\n";
-        out << forStorage;
-        out.close();
-    } else {
-        std::cout << "Unable to open the file! \n";
     }
 }
 
