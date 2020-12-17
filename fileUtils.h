@@ -31,8 +31,8 @@ std::string readWholeFile(const std::string &fileOpenName) {
 }
 
 void readFileForDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
-    std::ifstream in;
     std::string buffer, codePart, wholeContent, binary = "01";
+    std::ifstream in;
     in.open(fileName);
     if (in.is_open()) {
         std::ostringstream ss;
@@ -51,10 +51,10 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
 }
 
 
-void readFileForDebugDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
+void readFileForDecimalDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
+    std::string lastSize, buffer, codePart, wholeContent, decimal = " 0123456789", codeNumbers, sinlgeNum;
+
     std::ifstream in;
-    std::string lastSize;
-    std::string buffer, codePart, wholeContent, decimal = " 0123456789", codeNumbers, sinlgeNum;
     in.open(fileName);
     if (in.is_open()) {
         std::ostringstream ss;
@@ -97,6 +97,12 @@ void saveStringToFile(const std::string &fileName, const std::string &forStorage
     } else {
         std::cout << "Unable to open the file!\n";
     }
+}
+
+void compareSizes(const std::string &originalContent, const std::string &encoded) {
+    std::cout << "The original file size is " << 8 * originalContent.size() << " bits and the compressed file will be "
+              << encoded.size() << " bites. That means the compresssed file is "
+              << encoded.size() / ((float) 8 * originalContent.size() / 100) << "% of the original one!\n";
 }
 
 #endif //HUFFMANALGORITHM_FILEUTILS_H

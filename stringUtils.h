@@ -137,4 +137,5 @@ std::string contentAsNumbers(const std::string &binaryContent) {
 }
 
 
+
 #endif //HUFFMANALGORITHM_STRINGUTILS_H

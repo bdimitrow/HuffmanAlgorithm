@@ -50,38 +50,47 @@ void menu() {
     } while (choice != 3);
 }
 
-void decodeBinary() {
-    std::string fileName, hftree, code;
-    std::cout << "Enter the name of the file you'd like to decompress: ";
-    std::cin >> fileName;
+std::string decodeBinary(const std::string &fileName) {
+    std::string hftree, code, originalContent;
+
     readFileForDecompress(fileName, hftree, code);
     std::vector<std::pair<char, std::string>> pairs = stringToVectorCodePairs(hftree);
     HuffmanTree *decodedTree = new HuffmanTree(pairs);
-    std::string originalContent = decodedTree->decode_string(code);
-    std::cout << "Enter the name for the file with original content: ";
-    std::string fileNameDecompressed;
-    std::cin >> fileNameDecompressed;
-    saveStringToFile(fileNameDecompressed, originalContent);
+    originalContent = decodedTree->decode_string(code);
+
+    return originalContent;
 }
 
-void decodeDebug() {
-    std::string fileName, hftree, code;
-    std::cout << "Enter the name of the file you'd like to decompress: ";
-    std::cin >> fileName;
-    readFileForDebugDecompress(fileName, hftree, code);
+std::string decodeDecimal(const std::string &fileName) {
+    std::string hftree, code, originalContent;
+
+    readFileForDecimalDecompress(fileName, hftree, code);
     std::vector<std::pair<char, std::string>> pairs = stringToVectorCodePairs(hftree);
     HuffmanTree *decodedTree = new HuffmanTree(pairs);
-    std::string originalContent = decodedTree->decode_string(code);
+    originalContent = decodedTree->decode_string(code);
+
+    return originalContent;
+}
+
+void decode(bool binary) {
+    std::string fileName, fileNameDecompressed, originalContent;
+    std::cout << "Enter the name of the file you'd like to decompress: ";
+    std::cin >> fileName;
+
+    if (binary) {
+        originalContent = decodeBinary(fileName);
+    } else {
+        originalContent = decodeDecimal(fileName);
+    }
+
     std::cout << "Enter the name for the file with original content: ";
-    std::string fileNameDecompressed;
     std::cin >> fileNameDecompressed;
     saveStringToFile(fileNameDecompressed, originalContent);
 }
 
-void encodeBinary() {
-    std::string originalFileName, fileContent, pairsAsString, binaryString, compressedFileName, forStorage;
-    std::cout << "Enter the name of the file you'd like to compress: ";
-    std::cin >> originalFileName;
+
+std::string encodeBinary(const std::string &originalFileName) {
+    std::string fileContent, pairsAsString, binaryString, forStorage;
 
     fileContent = readWholeFile(originalFileName);
     HuffmanTree *tree = new HuffmanTree(fileContent.c_str());
@@ -91,40 +100,66 @@ void encodeBinary() {
     binaryString = encodeString(fileContent, pairs);
     forStorage = pairsAsString + "\n" + binaryString;
 
-    std::cout << "Enter a name for the compressed file: ";
-    std::cin >> compressedFileName;
-    saveStringToFile(compressedFileName, forStorage);
+    compareSizes(fileContent, binaryString);
+
+    return forStorage;
 }
 
-
-void encodeDebug() {
-    std::cout << "Enter the name of the file to be compressed: ";
-    std::string originalFileName, fileContent, pairsAsString, binaryContent, compressedFileName, numbersForSaving;
-    std::cin >> originalFileName;
+std::string encodeDecimal(const std::string &originalFileName) {
+    std::string fileContent, pairsAsString, binaryString, numbersForSaving, forStorage;
 
     fileContent = readWholeFile(originalFileName);
     HuffmanTree *tree = new HuffmanTree(fileContent.c_str());
     std::vector<std::pair<char, std::string>> pairs;
     tree->makePairs(pairs);
     pairsAsString = vectorCodePairsToString(pairs);
-    binaryContent = encodeString(fileContent, pairs);
+    binaryString = encodeString(fileContent, pairs);
 
-    numbersForSaving = contentAsNumbers(binaryContent);
+    numbersForSaving = contentAsNumbers(binaryString);
 
     // @TODO better way to add the char ;(
-    char num = binaryContent.size() % 8 + '0';
+    char num = binaryString.size() % 8 + '0';
     std::stringstream ss;
     ss << num;
-    std::string forStorage;
     ss >> forStorage;
+
     forStorage += pairsAsString + "\n" + numbersForSaving;
+
+    return forStorage;
+}
+
+
+void encode(bool binary) {
+    std::string originalFileName, compressedFileName, forStorage;
+
+    std::cout << "Enter the name of the file to be compressed: ";
+    std::cin >> originalFileName;
+
+    if (binary) {
+        forStorage = encodeBinary(originalFileName);
+    } else {
+        forStorage = encodeDecimal(originalFileName);
+    }
 
     std::cout << "Enter a name for the compressed file: ";
     std::cin >> compressedFileName;
     saveStringToFile(compressedFileName, forStorage);
 }
 
+void debug() {
+    std::string fileName, fileNameDecompressed, decimalContent, binaryCode;
+    std::cout << "Enter the name of the compressed file you'd like to debug: ";
+    std::cin >> fileName;
 
+    std::string hftree;
 
+    readFileForDecompress(fileName, hftree, binaryCode);
+
+    decimalContent = contentAsNumbers(binaryCode);
+
+    std::cout << "Enter the name for the file with original content: ";
+    std::cin >> fileNameDecompressed;
+    saveStringToFile(fileNameDecompressed, decimalContent);
+}
 
 #endif //HUFFMANALGORITHM_MENU_H

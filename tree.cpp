@@ -42,7 +42,6 @@ HuffmanTree::HuffmanTree(const char *str) {
 }
 
 HuffmanTree::HuffmanTree(std::vector<std::pair<char, std::string>> &codePairs) {
-
     HuffmanTreeNode *tree = new HuffmanTreeNode('`', 1);
     HuffmanTreeNode *current = tree;
     for (int i = 0; i < codePairs.size(); ++i) {
@@ -159,5 +158,6 @@ std::string HuffmanTree::decode_string(std::string s) {
             curr = root;
         }
     }
+
     return result;
 }

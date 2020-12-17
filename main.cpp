@@ -12,11 +12,14 @@
 
 int main() {
 
-//    encodeBinary();
-//    decodeBinary();
+    encode(true);
+//    decode(true);
+//
+//    encode(false);
+//    decode(false);
 
-//    encodeDebug();
-    decodeDebug();
+    //debug();
+
 
 
 
