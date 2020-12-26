@@ -13,6 +13,7 @@
 #include <bitset>
 
 /**
+ * @file
  * @fn std::string encodeString(std::string realContent, std::vector<std::pair<char, std::string>> &codePairs)
  * This function accepts string and vector of pairs(char, string) as arguments. The string in the pair is the binary
  * code for the char. The result is a binary sequence of the real content.
@@ -20,7 +21,6 @@
  * @param std::vector<std::pair<char, std::string>> &codePairs
  * @return std::string binarySequence
  */
-/// converting a sentence to a binary sentence
 std::string encodeString(std::string realContent, std::vector<std::pair<char, std::string>> &codePairs) {
     std::string binarySequence;
     int i = 0;
@@ -37,7 +37,8 @@ std::string encodeString(std::string realContent, std::vector<std::pair<char, st
 }
 
 /**
- * @fn Tranforming vector of pairs into a string.
+ * @fn std::string vectorCodePairsToString(std::vector<std::pair<char, std::string>> &codePairs)
+ * Transforming vector of pairs into a string.
  * @param std::vector<std::pair<char, std::string>> codePairs
  * @return std::string pairStr
  */
@@ -54,7 +55,8 @@ std::string vectorCodePairsToString(std::vector<std::pair<char, std::string>> &c
 }
 
 /**
- * @fn Accepting a string as argument and transforms it into a vector of pairs(char-binary sequence).
+ * @fn std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string pairStr)
+ * Accepting a string as argument and transforms it into a vector of pairs(char-binary sequence).
  * @param std::string pairStr
  * @return std::vector<std::pair<char, std::string>> codePairs
  */
@@ -76,7 +78,8 @@ std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string pa
 }
 
 /**
- * @fn Transforming a string(storing binary number) into a string(storing a decimal number).
+ * @fn std::string binaryToDecimal(std::string binary)
+ * Transforming a string(storing binary number) into a string(storing a decimal number).
  * @example "01111" -> "15"
  * @param std::string binary
  * @return std::string decimal
@@ -99,7 +102,8 @@ std::string binaryToDecimal(std::string binary) {
 }
 
 /**
- * @fn Transforming a string(storing a decimal number) into a string(storing a binary number - 8 bits long).
+ * @fn std::string decimalToBinary(const std::string &binary)
+ * Transforming a string(storing a decimal number) into a string(storing a binary number - 8 bits long).
  * @example "15" -> "00001111"
  * @param std::string decimal
  * @result std::string binary
@@ -115,7 +119,8 @@ std::string decimalToBinary(const std::string &binary) {
 }
 
 /**
- * @fn Takes a string consisting just of 0s and 1s. Splits the string into substrings of length == 8 and transforms this
+ * @fn std::string contentAsNumbers(const std::string &binaryContent)
+ * Takes a string consisting just of 0s and 1s. Splits the string into substrings of length == 8 and transforms this
  * 8 bits binary number into decimal ones. Returns them as a string.
  * @param std::string binaryContent
  * @return std::string numericContent

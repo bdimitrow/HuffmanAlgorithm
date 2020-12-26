@@ -1,7 +1,3 @@
-//
-// Created by bozhidar on 12/3/20.
-//
-
 #ifndef HUFFMANALGORITHM_FILEUTILS_H
 #define HUFFMANALGORITHM_FILEUTILS_H
 
@@ -12,7 +8,13 @@
 #include <sstream>
 #include <cmath>
 
-
+/**
+ * \file
+ * @fn std::string readWholeFile(const std::string &fileOpenName)
+ * The function takes a string(name of the file to be opened) as an argument and returns the whole file content in a string.
+ * @param const std::string &fileOpenName
+ * @return std::string fileContent
+ */
 std::string readWholeFile(const std::string &fileOpenName) {
     std::string fileContent;
 
@@ -98,6 +100,7 @@ void saveStringToFile(const std::string &fileName, const std::string &forStorage
         std::cout << "Unable to open the file!\n";
     }
 }
+
 
 void compareSizes(const std::string &originalContent, const std::string &encoded) {
     std::cout << "The original file size is " << 8 * originalContent.size() << " bits and the compressed file will be "

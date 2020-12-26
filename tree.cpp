@@ -1,16 +1,7 @@
-//
-// Created by bozhidar on 12/2/20.
-//
-//
-
 #include "tree.h"
 
 HuffmanTree::HuffmanTree() {
     root = nullptr;
-}
-
-HuffmanTree::HuffmanTree(char data, int occur) {
-    root = new HuffmanTreeNode(data, occur);
 }
 
 
@@ -22,7 +13,9 @@ HuffmanTree::HuffmanTree(const char *str) {
         occurs[(char) *str++]++;
     }
 
-    // Pushing all symbols in priority queue.
+    /**
+     * Creating nodes for every symbol with a non-zero occurrence and adding it to the queue.
+     */
     for (int i = 0; i < 256; ++i) {
         if (occurs[i] != 0) {
             HuffmanTreeNode *toAddNode = new HuffmanTree::HuffmanTreeNode((char) i, occurs[i]);
@@ -44,18 +37,18 @@ HuffmanTree::HuffmanTree(const char *str) {
 HuffmanTree::HuffmanTree(std::vector<std::pair<char, std::string>> &codePairs) {
     HuffmanTreeNode *tree = new HuffmanTreeNode('`', 1);
     HuffmanTreeNode *current = tree;
-    for (int i = 0; i < codePairs.size(); ++i) {
-        for (int j = 0; j < codePairs.at(i).second.length(); ++j) {
-            if (codePairs.at(i).second.at(j) == '0') {
+    for (auto &codePair : codePairs) {
+        for (int j = 0; j < codePair.second.length(); ++j) {
+            if (codePair.second.at(j) == '0') {
                 if (current->left == nullptr) {
-                    current->left = new HuffmanTreeNode(codePairs.at(i).first, 0);
+                    current->left = new HuffmanTreeNode(codePair.first, 0);
                     current = current->left;
                 } else {
                     current = current->left;
                 }
-            } else {
+            } else { // codePair.second.at(j) == '1'
                 if (current->right == nullptr) {
-                    current->right = new HuffmanTreeNode(codePairs.at(i).first, 1);
+                    current->right = new HuffmanTreeNode(codePair.first, 1);
                     current = current->right;
                 } else {
                     current = current->right;
@@ -76,6 +69,7 @@ HuffmanTree &HuffmanTree::operator=(const HuffmanTree &other) {
         clear(this->root);
         copy(other);
     }
+
     return *this;
 }
 
@@ -107,23 +101,6 @@ HuffmanTree::HuffmanTreeNode *HuffmanTree::copyHuffmanTreeNode(HuffmanTree::Huff
     copied->right = copyHuffmanTreeNode(current->right);
 
     return copied;
-}
-
-void HuffmanTree::printCode() {
-    printCode(root, "");
-}
-
-void HuffmanTree::printCode(HuffmanTree::HuffmanTreeNode *current, std::string str) {
-    if (current->left) {
-        printCode(current->left, str + '0');
-    }
-    if (current->right) {
-        printCode(current->right, str + '1');
-    }
-    if (current != nullptr && current->left == nullptr && current->right == nullptr) {
-        std::cout << current->symbol << " : ";
-        std::cout << str << std::endl;
-    }
 }
 
 void HuffmanTree::makePairs(std::vector<std::pair<char, std::string>> &vec) {
@@ -160,4 +137,17 @@ std::string HuffmanTree::decode_string(std::string s) {
     }
 
     return result;
+}
+
+HuffmanTree::HuffmanTreeNode::HuffmanTreeNode(char data, int occur) {
+    symbol = data;
+    occurrences = occur;
+    left = right = nullptr;
+}
+
+HuffmanTree::HuffmanTreeNode::HuffmanTreeNode(HuffmanTree::HuffmanTreeNode *l, HuffmanTree::HuffmanTreeNode *r) {
+    symbol = '`';  // rarely used symbol
+    occurrences = l->occurrences + r->occurrences;
+    left = l;
+    right = r;
 }

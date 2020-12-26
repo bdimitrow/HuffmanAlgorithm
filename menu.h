@@ -1,7 +1,3 @@
-//
-// Created by bozhidar on 12/5/20.
-//
-
 #ifndef HUFFMANALGORITHM_MENU_H
 #define HUFFMANALGORITHM_MENU_H
 
@@ -16,39 +12,6 @@
 #include <bitset>
 
 
-void menu() {
-    std::cout << "Welcome!\n";
-    std::cout << "Please choose an action!\n"
-                 "Press 1 to compress a file;\n"
-                 "Press 2 to decompress a file;\n"
-                 "Press 3 to quit;\n";
-    int choice;
-    do {
-        std::cout << "Make a choice: ";
-        std::cin >> choice;
-        if (!(std::cin >> choice)) {
-            std::cout << "Invalid choice! Please enter an integer! " << std::endl;
-            std::cin.clear();                            // reset any error flags
-            std::cin.ignore(10000, '\n');       // ignore any characters in the input buffer
-        } else if (choice == 1 || choice == 2 || choice == 3) {
-            if (choice == 1) {
-                std::cout
-                        << "This is the compression functionality. Two versions of compression are supported(Choose one): \n"
-                           "Press 1 for binary compress;\n"
-                           "Press 2 for numeric compress;\n";
-
-            } else if (choice == 2) {
-                std::cout
-                        << "This is the decompression functionality. Two versions of decompression are supported(Choose one): \n"
-                           "Press 1 to decompress a binary compressed file;\n"
-                           "Press 2 to decompress a numeric compressed file;\n";
-
-            } else if (choice == 3) {
-                //
-            }
-        }
-    } while (choice != 3);
-}
 
 std::string decodeBinary(const std::string &fileName) {
     std::string hftree, code, originalContent;
@@ -146,20 +109,61 @@ void encode(bool binary) {
     saveStringToFile(compressedFileName, forStorage);
 }
 
-void debug() {
-    std::string fileName, fileNameDecompressed, decimalContent, binaryCode;
-    std::cout << "Enter the name of the compressed file you'd like to debug: ";
-    std::cin >> fileName;
 
-    std::string hftree;
+void debug(std::string fileName) {
+    std::string binary = "01", decimalContent, binaryCode;
+    std::string fileContent = readWholeFile(fileName);
 
-    readFileForDecompress(fileName, hftree, binaryCode);
+    if(fileContent.empty()) return;
+
+    int found = fileContent.find_last_not_of(binary);
+    if (found != std::string::npos) {
+        binaryCode = fileContent.substr(found + 1);
+    }
 
     decimalContent = contentAsNumbers(binaryCode);
+    std::cout << "The file contains the following numbers: " << decimalContent << std::endl;
+}
 
-    std::cout << "Enter the name for the file with original content: ";
-    std::cin >> fileNameDecompressed;
-    saveStringToFile(fileNameDecompressed, decimalContent);
+
+void menu() {
+    std::cout << "Welcome!\n";
+    std::cout << "Please choose an action!\n"
+                 "Press 1 to compress a file(original to binary compress);\n"
+                 "Press 2 to decompress a file(binary compressed to original);\n"
+                 "Press 3 to debug(binary compressed to decimal numbers);\n"
+                 "Press 4 to exit;\n"
+                 "Press 5 to compress a file(original to decimal compress);\n"
+                 "Press 6 to decompress a file(decimal compressed to original);";
+    int choice;
+    do {
+        std::cout << "\nMake a choice: ";
+        if (!(std::cin >> choice)) {
+            std::cout << "Invalid choice! Please enter an integer! " << std::endl;
+            std::cin.clear();                            // reset any error flags
+            std::cin.ignore(10000, '\n');       // ignore any characters in the input buffer
+        } else if (choice >= 1 && choice <= 6) {
+            if (choice == 1) {
+                encode(true);
+
+            } else if (choice == 2) {
+                decode(true);
+
+            } else if (choice == 3) {
+                std::string fileDebugName;
+                std::cout << "Enter the name of the file to be debugged: ";
+                std::cin >> fileDebugName;
+                debug(fileDebugName);
+            } else if(choice == 4){
+                std::cout << "Goodbye have a nice day! \n";
+                return exit(EXIT_SUCCESS);
+            } else if(choice == 5){
+                encode(false);
+            } else {
+                decode(false);
+            }
+        }
+    } while (choice != 3);
 }
 
 #endif //HUFFMANALGORITHM_MENU_H

@@ -8,50 +8,74 @@
 #include <iostream>
 #include <queue>
 
+/*! \class HuffmanTree
+ * \brief A Huffman tree class.
+ *
+ * This class is used to build a Huffman tree from an occurrence table(when compressing) and from string(when decompressing).
+ */
 
+/**
+ * @param root is a pointer of type HuffmanTreeNode
+ */
 class HuffmanTree {
 private:
+    /**
+     * \struct HuffmanTreeNode
+     * \brief representing a node in the Huffman tree. Every node contains @param char symbol, @param int occurrences (of the char)
+     * @param HuffmanTreeNode *left, *right.
+     */
     struct HuffmanTreeNode {
         char symbol;
         int occurrences;
         HuffmanTreeNode *left, *right;
 
-        HuffmanTreeNode(char data, int occur) {
-            symbol = data;
-            occurrences = occur;
-            left = right = nullptr;
-        }
+        /**
+         * A constructor that creates a node from a char and an int and the children(*left and *right) are nullpointers.
+         */
+        HuffmanTreeNode(char, int);
 
-        HuffmanTreeNode(HuffmanTreeNode *l, HuffmanTreeNode *r) {
-            symbol = '`';  // rarely used symbol
-            occurrences = l->occurrences + r->occurrences;
-            left = l;
-            right = r;
-        }
+        /**
+         * A constructor that takes two nodes and creates their parent(where the occurrences field equals the sum of the occurrences of the children).
+         */
+        HuffmanTreeNode(HuffmanTreeNode *, HuffmanTreeNode *);
 
-        bool operator<(const HuffmanTreeNode &other) const {
-            return this->occurrences < other.occurrences;
-        }
+        /**
+         * Operator < that compares two HuffmanTreeNodes by the occurrences field.
+         * @param other
+         * @return this->occurrences < other.occurrences
+         */
+        inline bool operator<(const HuffmanTreeNode &other) const { return this->occurrences < other.occurrences; }
     };
 
     HuffmanTreeNode *root;
 
-    // used as a sorting function in the prority queue
+    /**
+     * А compare function used as a sorting predicate in the priority queue
+     */
     struct compareHuffmanTree {
         bool operator()(HuffmanTreeNode *left, HuffmanTreeNode *right) {
             return left->occurrences > right->occurrences;
         }
     };
 
-
 public:
+    /**
+     * A default constructor.
+     */
     HuffmanTree();
 
-    HuffmanTree(char, int);
-
     // building a huffman tree from the source file;
-    HuffmanTree(const char *str);
+    /**
+     * Constructor for HuffmanTree using a char array. Used when compressing a file. The source file is extracted into
+     * a char array and the amount of times that each symbol appears is known. Afterwards a Huffman forest is created
+     * and stored into a priority queue. The two trees with the smallest amount of occurrences are combined into one tree.
+     * When the priority queue has just one element, that element is pointer to the root of the tree.
+     */
+    explicit HuffmanTree(const char *);
 
+    /**
+     * Constructor for HuffmanTree using a vector of pairs made of char and string.
+     */
     explicit HuffmanTree(std::vector<std::pair<char, std::string>> &);
 
     HuffmanTree(const HuffmanTree &);
@@ -60,12 +84,7 @@ public:
 
     ~HuffmanTree();
 
-    ////////////////////////////////////////////////
     inline bool isLeaf(HuffmanTreeNode *curr) { return curr->left == nullptr && curr->right == nullptr; }
-
-    inline HuffmanTreeNode *getRoot() { return root; }
-
-    void printCode();
 
     void makePairs(std::vector<std::pair<char, std::string>> &);
 
@@ -78,8 +97,6 @@ private:
     void copy(const HuffmanTree &);
 
     HuffmanTreeNode *copyHuffmanTreeNode(HuffmanTreeNode *);
-
-    void printCode(HuffmanTreeNode *, std::string);
 
     void makePairs(HuffmanTreeNode *, std::string, std::vector<std::pair<char, std::string>> &);
 };
