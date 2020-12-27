@@ -36,6 +36,7 @@ private:
 
         /**
          * A constructor that takes two nodes and creates their parent(where the occurrences field equals the sum of the occurrences of the children).
+         * For the symbol of the parent I choose a rarely used symbol '`'.
          */
         HuffmanTreeNode(HuffmanTreeNode *, HuffmanTreeNode *);
 
@@ -47,7 +48,7 @@ private:
         inline bool operator<(const HuffmanTreeNode &other) const { return this->occurrences < other.occurrences; }
     };
 
-    HuffmanTreeNode *root;
+    HuffmanTreeNode *root{};
 
     /**
      * А compare function used as a sorting predicate in the priority queue
@@ -64,7 +65,6 @@ public:
      */
     HuffmanTree();
 
-    // building a huffman tree from the source file;
     /**
      * Constructor for HuffmanTree using a char array. Used when compressing a file. The source file is extracted into
      * a char array and the amount of times that each symbol appears is known. Afterwards a Huffman forest is created
@@ -74,32 +74,80 @@ public:
     explicit HuffmanTree(const char *);
 
     /**
-     * Constructor for HuffmanTree using a vector of pairs made of char and string.
+     * Constructor for HuffmanTree using a vector of pairs made of char and string. Used when decompressing a file. In
+     * a compressed file the Huffman tree is saved as a string that is converted to a vector of pairs of char and string
+     * corresponding to that character. The tree is rebuild with this vector. If the string symbol is 0 a left child is
+     * created whether there is no one. A similar process happens when the string symbol is 1. However the child is the right one.
      */
     explicit HuffmanTree(std::vector<std::pair<char, std::string>> &);
 
+    /**
+     * A copy constructor.
+     */
     HuffmanTree(const HuffmanTree &);
 
+    /**
+     * An operator =. That copies the 'other' tree to 'this' tree.
+     */
     HuffmanTree &operator=(const HuffmanTree &);
 
+    /**
+     * A destructor.
+     */
     ~HuffmanTree();
 
-    inline bool isLeaf(HuffmanTreeNode *curr) { return curr->left == nullptr && curr->right == nullptr; }
+    /**
+     * @fn inline bool isLeaf(HuffmanTreeNode *node)
+     * Checks whether a node is a leaf(it has no children).
+     * @param HuffmanTreeNode *node
+     * @return bool
+     */
+    inline bool isLeaf(HuffmanTreeNode *node) { return node->left == nullptr && node->right == nullptr; }
 
+    /**
+     * @fn void makePairs(std::vector<std::pair<char, std::string>> &)
+     * Uses the private function makePairs to create vector of pairs for the public.
+     */
     void makePairs(std::vector<std::pair<char, std::string>> &);
 
+    /**
+     * @fn std::string decode_string(const std::string &)
+     * @param std::string binaryStr
+     * The function takes the binary string and traverse through the tree. When the string symbol is '0' the traversal
+     * goes to the left child and when it is '1' the traversal goes to the right child. Reaching a leaf node, the node's symbol
+     * is added to the resulting string. When the binaryStr is exhausted the resulting string is returned.
+     * @return std::string result
+     */
     // taking binary string and converting it to normal according to the tree;
-    std::string decode_string(std::string s);
+    std::string decode_string(const std::string &);
 
 private:
+    /**
+     * @fn void clear(NuffmanTreeNode *node)
+     * Recursively deleting a node and its subtrees.
+     */
     void clear(HuffmanTreeNode *);
 
+    /**
+     * @fn void copy(const HuffmanTree &)
+     * Using the copyHuffmanTreeNode to make a copy of the tree.
+     */
     void copy(const HuffmanTree &);
 
+    /**
+     * @fn HuffmanTreeNode *copyHuffmanTreeNode(HuffmanTreeNode *)
+     * Recursively coping a node and its subtrees.
+     * @return A copy of the node and its subtrees.
+     */
     HuffmanTreeNode *copyHuffmanTreeNode(HuffmanTreeNode *);
 
+    /**
+     * @fn void makePairs(HuffmanTreeNode *, std::string, std::vector<std::pair<char, std::string>> &)
+     * Called by the public one. The function iterates through the tree until it reaches a leaf node. When going to the left
+     * node a '0' is added to the string and when going to the right child a '1' is added. When a leaf is reached the currently generated
+     * string and the leaf's symbol are added to the vector of pairs.
+     */
     void makePairs(HuffmanTreeNode *, std::string, std::vector<std::pair<char, std::string>> &);
 };
-
 
 #endif //HUFFMANALGORITHM_TREE_H

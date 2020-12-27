@@ -4,7 +4,6 @@ HuffmanTree::HuffmanTree() {
     root = nullptr;
 }
 
-
 HuffmanTree::HuffmanTree(const char *str) {
     std::priority_queue<HuffmanTreeNode *, std::vector<HuffmanTreeNode *>, compareHuffmanTree> forest;
 
@@ -115,18 +114,18 @@ void HuffmanTree::makePairs(HuffmanTree::HuffmanTreeNode *current, std::string s
     if (current->right) {
         makePairs(current->right, str + '1', vec);
     }
-    if (current != nullptr && current->left == nullptr && current->right == nullptr) {
+    if (current != nullptr && isLeaf(current)) {
         vec.push_back(std::make_pair(current->symbol, str));
     }
 }
 
-std::string HuffmanTree::decode_string(std::string s) {
+std::string HuffmanTree::decode_string(const std::string &binaryStr) {
     std::string result;
     HuffmanTreeNode *curr = root;
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == '0') {
+    for (const char &i : binaryStr) {
+        if (i == '0') {
             curr = curr->left;
-        } else {
+        } else { // i == '1'
             curr = curr->right;
         }
         // leaf node ? adding the symbol to the result string

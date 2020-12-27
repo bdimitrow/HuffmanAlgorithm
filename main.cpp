@@ -40,6 +40,6 @@ int main() {
  *  https://github.com/bdimitrow/HuffmanAlgorithm
  *
  *  \section Second Happy path
- *   
+ *
 
  */

@@ -12,7 +12,6 @@
 #include <bitset>
 
 
-
 std::string decodeBinary(const std::string &fileName) {
     std::string hftree, code, originalContent;
 
@@ -40,10 +39,14 @@ void decode(bool binary) {
     std::cout << "Enter the name of the file you'd like to decompress: ";
     std::cin >> fileName;
 
-    if (binary) {
-        originalContent = decodeBinary(fileName);
-    } else {
-        originalContent = decodeDecimal(fileName);
+    try {
+        if (binary) {
+            originalContent = decodeBinary(fileName);
+        } else { // decimal
+            originalContent = decodeDecimal(fileName);
+        }
+    } catch (...) {
+        std::cout << "Such a file does not exist!" << std::endl;
     }
 
     std::cout << "Enter the name for the file with original content: ";
@@ -80,7 +83,6 @@ std::string encodeDecimal(const std::string &originalFileName) {
 
     numbersForSaving = contentAsNumbers(binaryString);
 
-    // @TODO better way to add the char ;(
     char num = binaryString.size() % 8 + '0';
     std::stringstream ss;
     ss << num;
@@ -95,13 +97,17 @@ std::string encodeDecimal(const std::string &originalFileName) {
 void encode(bool binary) {
     std::string originalFileName, compressedFileName, forStorage;
 
-    std::cout << "Enter the name of the file to be compressed: ";
+    std::cout << "Enter the name of the file you'd like to compress: ";
     std::cin >> originalFileName;
 
-    if (binary) {
-        forStorage = encodeBinary(originalFileName);
-    } else {
-        forStorage = encodeDecimal(originalFileName);
+    try {
+        if (binary) {
+            forStorage = encodeBinary(originalFileName);
+        } else {
+            forStorage = encodeDecimal(originalFileName);
+        }
+    } catch (...) {
+        std::cout << "Such a file does not exist!" << std::endl;
     }
 
     std::cout << "Enter a name for the compressed file: ";
@@ -114,7 +120,7 @@ void debug(std::string fileName) {
     std::string binary = "01", decimalContent, binaryCode;
     std::string fileContent = readWholeFile(fileName);
 
-    if(fileContent.empty()) return;
+    if (fileContent.empty()) return;
 
     int found = fileContent.find_last_not_of(binary);
     if (found != std::string::npos) {
@@ -154,16 +160,16 @@ void menu() {
                 std::cout << "Enter the name of the file to be debugged: ";
                 std::cin >> fileDebugName;
                 debug(fileDebugName);
-            } else if(choice == 4){
-                std::cout << "Goodbye have a nice day! \n";
+            } else if (choice == 4) {
+                std::cout << "Thank you for using the application! \n";
                 return exit(EXIT_SUCCESS);
-            } else if(choice == 5){
+            } else if (choice == 5) {
                 encode(false);
             } else {
                 decode(false);
             }
         }
-    } while (choice != 3);
+    } while (choice != 4);
 }
 
 #endif //HUFFMANALGORITHM_MENU_H
