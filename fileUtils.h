@@ -140,9 +140,9 @@ void saveStringToFile(const std::string &fileName, const std::string &forStorage
 void compareSizes(const std::string &originalContent, const std::string &encoded) {
     std::cout << std::fixed << std::showpoint;
     std::cout << std::setprecision(2);
-    std::cout << "The original file size is " << 8 * originalContent.size() << " bits and the compressed file will be "
+    std::cout << "\nThe original file size is " << 8 * originalContent.size() << " bits and the compressed file will be "
               << encoded.size() << " bites. That means the compresssed file is "
-              << encoded.size() / ((float) 8 * originalContent.size() / 100) << "% of the original one!\n";
+              << encoded.size() / ((float) 8 * originalContent.size() / 100) << "% of the original one!\n\n";
 }
 
 #endif //HUFFMANALGORITHM_FILEUTILS_H

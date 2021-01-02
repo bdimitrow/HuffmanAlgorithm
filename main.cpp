@@ -2,17 +2,7 @@
 
 
 int main() {
-
-//    encode(true);
-//    decode(true);
-//
-//    encode(false);
-//    decode(false);
-
-//    debug();
-
     menu();
-
 
     return 0;
 }
