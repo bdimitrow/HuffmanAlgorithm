@@ -1,0 +1,97 @@
+\hypertarget{string_utils_8h}{}\section{string\+Utils.\+h File Reference}
+\label{string_utils_8h}\index{string\+Utils.\+h@{string\+Utils.\+h}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$bitset$>$}\newline
+Include dependency graph for string\+Utils.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{string_utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8}{encode\+String} (std\+::string real\+Content, std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&code\+Pairs)
+\item 
+std\+::string \hyperlink{string_utils_8h_aba807da1e1e845d2803bbd298e4c7835}{vector\+Code\+Pairs\+To\+String} (std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&code\+Pairs)
+\item 
+\mbox{\Hypertarget{string_utils_8h_a90dc5a9e01b32661b88d228809f3faa2}\label{string_utils_8h_a90dc5a9e01b32661b88d228809f3faa2}} 
+std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$ $>$ {\bfseries string\+To\+Vector\+Code\+Pairs} (std\+::string pair\+Str)
+\item 
+std\+::string \hyperlink{string_utils_8h_a94956b3add0021210707c7118df76fc3}{binary\+To\+Decimal} (std\+::string binary)
+\item 
+std\+::string \hyperlink{string_utils_8h_a07ac52f96c548c3dd23dc8674429caae}{decimal\+To\+Binary} (const std\+::string \&binary)
+\item 
+std\+::string \hyperlink{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}{content\+As\+Numbers} (const std\+::string \&binary\+Content)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{string_utils_8h_a94956b3add0021210707c7118df76fc3}\label{string_utils_8h_a94956b3add0021210707c7118df76fc3}} 
+\index{string\+Utils.\+h@{string\+Utils.\+h}!binary\+To\+Decimal@{binary\+To\+Decimal}}
+\index{binary\+To\+Decimal@{binary\+To\+Decimal}!string\+Utils.\+h@{string\+Utils.\+h}}
+\subsubsection{\texorpdfstring{binary\+To\+Decimal()}{binaryToDecimal()}}
+{\footnotesize\ttfamily std\+::string binary\+To\+Decimal (\begin{DoxyParamCaption}\item[{std\+::string}]{binary }\end{DoxyParamCaption})}
+
+Transforming a string(storing binary number) into a string(storing a decimal number). \mbox{\Hypertarget{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}\label{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}} 
+\index{string\+Utils.\+h@{string\+Utils.\+h}!content\+As\+Numbers@{content\+As\+Numbers}}
+\index{content\+As\+Numbers@{content\+As\+Numbers}!string\+Utils.\+h@{string\+Utils.\+h}}
+\subsubsection{\texorpdfstring{content\+As\+Numbers()}{contentAsNumbers()}}
+{\footnotesize\ttfamily std\+::string content\+As\+Numbers (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{binary\+Content }\end{DoxyParamCaption})}
+
+Takes a string consisting just of 0s and 1s. Splits the string into substrings of length == 8 and transforms this 8 bits binary number into decimal ones. Returns them as a string. 
+\begin{DoxyParams}{Parameters}
+{\em std\+::string} & binary\+Content \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string numeric\+Content 
+\end{DoxyReturn}
+\mbox{\Hypertarget{string_utils_8h_a07ac52f96c548c3dd23dc8674429caae}\label{string_utils_8h_a07ac52f96c548c3dd23dc8674429caae}} 
+\index{string\+Utils.\+h@{string\+Utils.\+h}!decimal\+To\+Binary@{decimal\+To\+Binary}}
+\index{decimal\+To\+Binary@{decimal\+To\+Binary}!string\+Utils.\+h@{string\+Utils.\+h}}
+\subsubsection{\texorpdfstring{decimal\+To\+Binary()}{decimalToBinary()}}
+{\footnotesize\ttfamily std\+::string decimal\+To\+Binary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{binary }\end{DoxyParamCaption})}
+
+Transforming a string(storing a decimal number) into a string(storing a binary number -\/ 8 bits long). \mbox{\Hypertarget{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8}\label{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8}} 
+\index{string\+Utils.\+h@{string\+Utils.\+h}!encode\+String@{encode\+String}}
+\index{encode\+String@{encode\+String}!string\+Utils.\+h@{string\+Utils.\+h}}
+\subsubsection{\texorpdfstring{encode\+String()}{encodeString()}}
+{\footnotesize\ttfamily std\+::string encode\+String (\begin{DoxyParamCaption}\item[{std\+::string}]{real\+Content,  }\item[{std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&}]{code\+Pairs }\end{DoxyParamCaption})}
+
+This function accepts string and vector of pairs(char, string) as arguments. The string in the pair is the binary code for the char. The result is a binary sequence of the real content. 
+\begin{DoxyParams}{Parameters}
+{\em std\+::string} & real\+Content \\
+\hline
+{\em std\+::vector$<$std\+::pair$<$char,std\+::string$>$$>$} & \&code\+Pairs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string binary\+Sequence 
+\end{DoxyReturn}
+\mbox{\Hypertarget{string_utils_8h_aba807da1e1e845d2803bbd298e4c7835}\label{string_utils_8h_aba807da1e1e845d2803bbd298e4c7835}} 
+\index{string\+Utils.\+h@{string\+Utils.\+h}!vector\+Code\+Pairs\+To\+String@{vector\+Code\+Pairs\+To\+String}}
+\index{vector\+Code\+Pairs\+To\+String@{vector\+Code\+Pairs\+To\+String}!string\+Utils.\+h@{string\+Utils.\+h}}
+\subsubsection{\texorpdfstring{vector\+Code\+Pairs\+To\+String()}{vectorCodePairsToString()}}
+{\footnotesize\ttfamily std\+::string vector\+Code\+Pairs\+To\+String (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&}]{code\+Pairs }\end{DoxyParamCaption})}
+
+Transforming vector of pairs into a string. 
+\begin{DoxyParams}{Parameters}
+{\em std\+::vector$<$std\+::pair$<$char,std\+::string$>$$>$} & code\+Pairs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string pair\+Str 
+\end{DoxyReturn}

@@ -8,7 +8,9 @@
 #include <iostream>
 #include <queue>
 
-/*! \class HuffmanTree
+/*!
+ * \file
+ * \class HuffmanTree
  * \brief A Huffman tree class.
  *
  * This class is used to build a Huffman tree from an occurrence table(when compressing) and from string(when decompressing).

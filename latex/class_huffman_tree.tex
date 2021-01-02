@@ -1,0 +1,124 @@
+\hypertarget{class_huffman_tree}{}\section{Huffman\+Tree Class Reference}
+\label{class_huffman_tree}\index{Huffman\+Tree@{Huffman\+Tree}}
+
+
+A Huffman tree class.  
+
+
+
+
+{\ttfamily \#include $<$tree.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_huffman_tree_a69699f7de5cfcd69e741f72ecb2b043d}{Huffman\+Tree} ()
+\item 
+\hyperlink{class_huffman_tree_a666b0956e40438a6130f31933271f6c6}{Huffman\+Tree} (const char $\ast$)
+\item 
+\hyperlink{class_huffman_tree_a610ac7959bfcf17c8a3c02cd9280ef61}{Huffman\+Tree} (std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&)
+\item 
+\hyperlink{class_huffman_tree_a19a9e458233f8dd7ed99252be797bbd3}{Huffman\+Tree} (const \hyperlink{class_huffman_tree}{Huffman\+Tree} \&)
+\item 
+\hyperlink{class_huffman_tree}{Huffman\+Tree} \& \hyperlink{class_huffman_tree_a1274cfce54e9bb66af77bff91aa71411}{operator=} (const \hyperlink{class_huffman_tree}{Huffman\+Tree} \&)
+\item 
+\hyperlink{class_huffman_tree_a1c39382be4e786a99a07183bbee3830d}{$\sim$\+Huffman\+Tree} ()
+\item 
+bool \hyperlink{class_huffman_tree_acf3a39b33e82f22f88436e6b99809761}{is\+Leaf} (Huffman\+Tree\+Node $\ast$node)
+\item 
+void \hyperlink{class_huffman_tree_aad4e7b29b81e1b64d1eb48a3bd70747f}{make\+Pairs} (std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&)
+\item 
+std\+::string \hyperlink{class_huffman_tree_a9089821533c4ef5b1ac5a4f689757603}{decode\+\_\+string} (const std\+::string \&)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A Huffman tree class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & is a pointer of type Huffman\+Tree\+Node\\
+\hline
+\end{DoxyParams}
+This class is used to build a Huffman tree from an occurrence table(when compressing) and from string(when decompressing). 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_huffman_tree_a69699f7de5cfcd69e741f72ecb2b043d}\label{class_huffman_tree_a69699f7de5cfcd69e741f72ecb2b043d}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{Huffman\+Tree()}{HuffmanTree()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Huffman\+Tree\+::\+Huffman\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A default constructor. \mbox{\Hypertarget{class_huffman_tree_a666b0956e40438a6130f31933271f6c6}\label{class_huffman_tree_a666b0956e40438a6130f31933271f6c6}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{Huffman\+Tree()}{HuffmanTree()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Huffman\+Tree\+::\+Huffman\+Tree (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor for \hyperlink{class_huffman_tree}{Huffman\+Tree} using a char array. Used when compressing a file. The source file is extracted into a char array and the amount of times that each symbol appears is known. Afterwards a Huffman forest is created and stored into a priority queue. The two trees with the smallest amount of occurrences are combined into one tree. When the priority queue has just one element, that element is pointer to the root of the tree. Creating nodes for every symbol with a non-\/zero occurrence and adding it to the queue.\mbox{\Hypertarget{class_huffman_tree_a610ac7959bfcf17c8a3c02cd9280ef61}\label{class_huffman_tree_a610ac7959bfcf17c8a3c02cd9280ef61}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{Huffman\+Tree()}{HuffmanTree()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Huffman\+Tree\+::\+Huffman\+Tree (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&}]{code\+Pairs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor for \hyperlink{class_huffman_tree}{Huffman\+Tree} using a vector of pairs made of char and string. Used when decompressing a file. In a compressed file the Huffman tree is saved as a string that is converted to a vector of pairs of char and string corresponding to that character. The tree is rebuild with this vector. If the string symbol is 0 a left child is created whether there is no one. A similar process happens when the string symbol is 1. However the child is the right one. \mbox{\Hypertarget{class_huffman_tree_a19a9e458233f8dd7ed99252be797bbd3}\label{class_huffman_tree_a19a9e458233f8dd7ed99252be797bbd3}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\index{Huffman\+Tree@{Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{Huffman\+Tree()}{HuffmanTree()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Huffman\+Tree\+::\+Huffman\+Tree (\begin{DoxyParamCaption}\item[{const \hyperlink{class_huffman_tree}{Huffman\+Tree} \&}]{other }\end{DoxyParamCaption})}
+
+A copy constructor. \mbox{\Hypertarget{class_huffman_tree_a1c39382be4e786a99a07183bbee3830d}\label{class_huffman_tree_a1c39382be4e786a99a07183bbee3830d}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!````~Huffman\+Tree@{$\sim$\+Huffman\+Tree}}
+\index{````~Huffman\+Tree@{$\sim$\+Huffman\+Tree}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{$\sim$\+Huffman\+Tree()}{~HuffmanTree()}}
+{\footnotesize\ttfamily Huffman\+Tree\+::$\sim$\+Huffman\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A destructor. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_huffman_tree_a9089821533c4ef5b1ac5a4f689757603}\label{class_huffman_tree_a9089821533c4ef5b1ac5a4f689757603}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!decode\+\_\+string@{decode\+\_\+string}}
+\index{decode\+\_\+string@{decode\+\_\+string}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{decode\+\_\+string()}{decode\_string()}}
+{\footnotesize\ttfamily std\+::string Huffman\+Tree\+::decode\+\_\+string (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{binary\+Str }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::string} & binary\+Str The function takes the binary string and traverse through the tree. When the string symbol is \textquotesingle{}0\textquotesingle{} the traversal goes to the left child and when it is \textquotesingle{}1\textquotesingle{} the traversal goes to the right child. Reaching a leaf node, the node\textquotesingle{}s symbol is added to the resulting string. When the binary\+Str is exhausted the resulting string is returned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string result 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_huffman_tree_acf3a39b33e82f22f88436e6b99809761}\label{class_huffman_tree_acf3a39b33e82f22f88436e6b99809761}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!is\+Leaf@{is\+Leaf}}
+\index{is\+Leaf@{is\+Leaf}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{is\+Leaf()}{isLeaf()}}
+{\footnotesize\ttfamily bool Huffman\+Tree\+::is\+Leaf (\begin{DoxyParamCaption}\item[{Huffman\+Tree\+Node $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Checks whether a node is a leaf(it has no children). 
+\begin{DoxyParams}{Parameters}
+{\em Huffman\+Tree\+Node} & $\ast$node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_huffman_tree_aad4e7b29b81e1b64d1eb48a3bd70747f}\label{class_huffman_tree_aad4e7b29b81e1b64d1eb48a3bd70747f}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!make\+Pairs@{make\+Pairs}}
+\index{make\+Pairs@{make\+Pairs}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{make\+Pairs()}{makePairs()}}
+{\footnotesize\ttfamily void Huffman\+Tree\+::make\+Pairs (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::pair$<$ char, std\+::string $>$$>$ \&}]{vec }\end{DoxyParamCaption})}
+
+Uses the private function make\+Pairs to create vector of pairs for the public. \mbox{\Hypertarget{class_huffman_tree_a1274cfce54e9bb66af77bff91aa71411}\label{class_huffman_tree_a1274cfce54e9bb66af77bff91aa71411}} 
+\index{Huffman\+Tree@{Huffman\+Tree}!operator=@{operator=}}
+\index{operator=@{operator=}!Huffman\+Tree@{Huffman\+Tree}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \hyperlink{class_huffman_tree}{Huffman\+Tree} \& Huffman\+Tree\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{class_huffman_tree}{Huffman\+Tree} \&}]{other }\end{DoxyParamCaption})}
+
+An operator =. That copies the \textquotesingle{}other\textquotesingle{} tree to \textquotesingle{}this\textquotesingle{} tree. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tree_8h}{tree.\+h}\item 
+tree.\+cpp\end{DoxyCompactItemize}

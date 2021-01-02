@@ -12,6 +12,7 @@
 #include <bitset>
 
 /**
+ * \file Containg the menu.
  * @fn std::string encodeBinary(const std::string &originalFileName)
  * That is the first option from the menu. Used to transform the original file content into a binary sequence. The returned
  * string is what should be saved into the file.
