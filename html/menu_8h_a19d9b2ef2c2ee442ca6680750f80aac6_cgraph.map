@@ -1,0 +1,9 @@
+<map id="encodeBinary" name="encodeBinary">
+<area shape="rect" id="node2" href="$file_utils_8h.html#a238a8662b6612f89b672ef5bb5208702" title="readWholeFile" alt="" coords="186,5,291,32"/>
+<area shape="rect" id="node3" href="$class_huffman_tree.html#aad4e7b29b81e1b64d1eb48a3bd70747f" title="HuffmanTree::makePairs" alt="" coords="155,56,323,83"/>
+<area shape="rect" id="node6" href="$string_utils_8h.html#aba807da1e1e845d2803bbd298e4c7835" title="vectorCodePairsToString" alt="" coords="155,107,323,133"/>
+<area shape="rect" id="node7" href="$string_utils_8h.html#a95ab5c9436cf673dab142534b3d9d2b8" title="encodeString" alt="" coords="189,157,288,184"/>
+<area shape="rect" id="node8" href="$file_utils_8h.html#a5bdd7b506a387c0a22cc8a84b003bc57" title="compareSizes" alt="" coords="186,208,291,235"/>
+<area shape="rect" id="node4" href="$class_huffman_tree.html#acf3a39b33e82f22f88436e6b99809761" title="HuffmanTree::isLeaf" alt="" coords="371,56,512,83"/>
+<area shape="rect" id="node5" href="$class_huffman_tree.html#a9089821533c4ef5b1ac5a4f689757603" title="HuffmanTree::decode\l_string" alt="" coords="560,49,708,90"/>
+</map>
