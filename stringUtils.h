@@ -80,7 +80,7 @@ std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string pa
 /**
  * @fn std::string binaryToDecimal(std::string binary)
  * Transforming a string(storing binary number) into a string(storing a decimal number).
- * @example "01111" -> "15"
+ * @example binaryToDecimal "01111" -> "15"
  * @param std::string binary
  * @return std::string decimal
  */
@@ -104,7 +104,7 @@ std::string binaryToDecimal(std::string binary) {
 /**
  * @fn std::string decimalToBinary(const std::string &binary)
  * Transforming a string(storing a decimal number) into a string(storing a binary number - 8 bits long).
- * @example "15" -> "00001111"
+ * @example decimalToBinary "15" -> "00001111"
  * @param std::string decimal
  * @result std::string binary
  */
@@ -122,6 +122,7 @@ std::string decimalToBinary(const std::string &binary) {
  * @fn std::string contentAsNumbers(const std::string &binaryContent)
  * Takes a string consisting just of 0s and 1s. Splits the string into substrings of length == 8 and transforms this
  * 8 bits binary number into decimal ones. Returns them as a string.
+ * @example contentAsNumbers "01101110100010101101110" -> "110 138 110"
  * @param std::string binaryContent
  * @return std::string numericContent
  */

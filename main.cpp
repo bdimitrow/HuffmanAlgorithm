@@ -29,7 +29,19 @@ int main() {
  *  \subsection Github
  *  https://github.com/bdimitrow/HuffmanAlgorithm
  *
- *  \section Second Happy path
+ *  \section Second Compression Ratio
+ *
+ *  \section Third Demo
+ *  \subsection one After running
+ *  \subsection two Original file content
+ *  Having a file named 'testEqual.txt' with the following content:
+ *  \subsection three Compressed file content
+ *  The file after being compressed looks like that:
+ *  \subsection four Decompressed file content
+ *  The compressed file look like that after the decommpression:
+ *  \subsection five Debug option output
+ *  This is the output:
+ *
  *
 
  */

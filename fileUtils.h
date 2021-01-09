@@ -27,7 +27,7 @@ std::string readWholeFile(const std::string &fileOpenName) {
         fileContent = ss.str();
         in.close();
     } else {
-        throw std::runtime_error("Unable to open the file!\n");
+        throw std::runtime_error("Unable to open the file! ");
     }
 
     return fileContent;

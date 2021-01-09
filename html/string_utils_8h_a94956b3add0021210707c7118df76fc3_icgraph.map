@@ -1,3 +1,6 @@
 <map id="binaryToDecimal" name="binaryToDecimal">
-<area shape="rect" id="node2" href="$string_utils_8h.html#a331f0ff71d04ffc7bc071784035c81d7" title="contentAsNumbers" alt="" coords="173,5,308,32"/>
+<area shape="rect" id="node2" href="$string_utils_8h.html#a331f0ff71d04ffc7bc071784035c81d7" title="contentAsNumbers" alt="" coords="173,31,308,57"/>
+<area shape="rect" id="node3" href="$menu_8h.html#a14d66ff6a330e13f559038ff7bede139" title="encodeDecimal" alt="" coords="356,5,468,32"/>
+<area shape="rect" id="node5" href="$menu_8h.html#a6b212802e4c01e4de9796f30bc61ed7c" title="debug" alt="" coords="383,56,441,83"/>
+<area shape="rect" id="node4" href="$menu_8h.html#ab2d66de6b8d4633b3ffb287cb616a883" title="encode" alt="" coords="516,5,580,32"/>
 </map>

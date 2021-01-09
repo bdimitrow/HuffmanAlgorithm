@@ -45,27 +45,47 @@ std\+::string \hyperlink{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}{cont
 \subsubsection{\texorpdfstring{binary\+To\+Decimal()}{binaryToDecimal()}}
 {\footnotesize\ttfamily std\+::string binary\+To\+Decimal (\begin{DoxyParamCaption}\item[{std\+::string}]{binary }\end{DoxyParamCaption})}
 
-Transforming a string(storing binary number) into a string(storing a decimal number). \mbox{\Hypertarget{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}\label{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}} 
+Transforming a string(storing binary number) into a string(storing a decimal number). Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_utils_8h_a94956b3add0021210707c7118df76fc3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}\label{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7}} 
 \index{string\+Utils.\+h@{string\+Utils.\+h}!content\+As\+Numbers@{content\+As\+Numbers}}
 \index{content\+As\+Numbers@{content\+As\+Numbers}!string\+Utils.\+h@{string\+Utils.\+h}}
 \subsubsection{\texorpdfstring{content\+As\+Numbers()}{contentAsNumbers()}}
 {\footnotesize\ttfamily std\+::string content\+As\+Numbers (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{binary\+Content }\end{DoxyParamCaption})}
 
-Takes a string consisting just of 0s and 1s. Splits the string into substrings of length == 8 and transforms this 8 bits binary number into decimal ones. Returns them as a string. 
-\begin{DoxyParams}{Parameters}
-{\em std\+::string} & binary\+Content \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-std\+::string numeric\+Content 
-\end{DoxyReturn}
+Takes a string consisting just of 0s and 1s. Splits the string into substrings of length == 8 and transforms this 8 bits binary number into decimal ones. Returns them as a string. Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_utils_8h_a331f0ff71d04ffc7bc071784035c81d7_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{string_utils_8h_a07ac52f96c548c3dd23dc8674429caae}\label{string_utils_8h_a07ac52f96c548c3dd23dc8674429caae}} 
 \index{string\+Utils.\+h@{string\+Utils.\+h}!decimal\+To\+Binary@{decimal\+To\+Binary}}
 \index{decimal\+To\+Binary@{decimal\+To\+Binary}!string\+Utils.\+h@{string\+Utils.\+h}}
 \subsubsection{\texorpdfstring{decimal\+To\+Binary()}{decimalToBinary()}}
 {\footnotesize\ttfamily std\+::string decimal\+To\+Binary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{binary }\end{DoxyParamCaption})}
 
-Transforming a string(storing a decimal number) into a string(storing a binary number -\/ 8 bits long). \mbox{\Hypertarget{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8}\label{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8}} 
+Transforming a string(storing a decimal number) into a string(storing a binary number -\/ 8 bits long). Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_utils_8h_a07ac52f96c548c3dd23dc8674429caae_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8}\label{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8}} 
 \index{string\+Utils.\+h@{string\+Utils.\+h}!encode\+String@{encode\+String}}
 \index{encode\+String@{encode\+String}!string\+Utils.\+h@{string\+Utils.\+h}}
 \subsubsection{\texorpdfstring{encode\+String()}{encodeString()}}
@@ -81,6 +101,13 @@ This function accepts string and vector of pairs(char, string) as arguments. The
 \begin{DoxyReturn}{Returns}
 std\+::string binary\+Sequence 
 \end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_utils_8h_a95ab5c9436cf673dab142534b3d9d2b8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{string_utils_8h_aba807da1e1e845d2803bbd298e4c7835}\label{string_utils_8h_aba807da1e1e845d2803bbd298e4c7835}} 
 \index{string\+Utils.\+h@{string\+Utils.\+h}!vector\+Code\+Pairs\+To\+String@{vector\+Code\+Pairs\+To\+String}}
 \index{vector\+Code\+Pairs\+To\+String@{vector\+Code\+Pairs\+To\+String}!string\+Utils.\+h@{string\+Utils.\+h}}
@@ -95,3 +122,10 @@ Transforming vector of pairs into a string.
 \begin{DoxyReturn}{Returns}
 std\+::string pair\+Str 
 \end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{string_utils_8h_aba807da1e1e845d2803bbd298e4c7835_icgraph}
+\end{center}
+\end{figure}

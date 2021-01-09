@@ -12,7 +12,7 @@
 #include <bitset>
 
 /**
- * \file Containg the menu.
+ * \file
  * @fn std::string encodeBinary(const std::string &originalFileName)
  * That is the first option from the menu. Used to transform the original file content into a binary sequence. The returned
  * string is what should be saved into the file.
@@ -221,7 +221,6 @@ void debug(const std::string &fileName) {
         std::cout << errorM.what() << std::endl;
     }
 }
-
 
 void menu() {
     std::cout << "Welcome!\n";
