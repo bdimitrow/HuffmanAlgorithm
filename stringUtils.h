@@ -66,7 +66,7 @@ std::vector<std::pair<char, std::string>> stringToVectorCodePairs(std::string pa
     for (int i = 0; i < pairStr.size(); ++i) {
         // added in order to be able to encode 0s and 1s;
         if (pairStr[i] == '`' && pairStr[i + 2]) {
-            codePairs.push_back(std::make_pair(pairStr[i + 1], code));
+            codePairs.emplace_back(pairStr[i + 1], code);
             code = "";
             i += 2;
         } else {

@@ -120,7 +120,6 @@ public:
      * is added to the resulting string. When the binaryStr is exhausted the resulting string is returned.
      * @return std::string result
      */
-    // taking binary string and converting it to normal according to the tree;
     std::string decode_string(const std::string &);
 
 private:

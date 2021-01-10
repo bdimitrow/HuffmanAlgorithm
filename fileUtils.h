@@ -1,6 +1,10 @@
 #ifndef HUFFMANALGORITHM_FILEUTILS_H
 #define HUFFMANALGORITHM_FILEUTILS_H
 
+static const char *const DECIMAL_STRING = " 0123456789";
+
+static const char *const BINARY_STRING = "01";
+
 #include "tree.h"
 #include "stringUtils.h"
 #include <iostream>
@@ -44,23 +48,13 @@ std::string readWholeFile(const std::string &fileOpenName) {
  * @param std::string &code
  */
 void readFileForDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
-    std::string codePart, wholeContent, binary = "01";
+    std::string codePart;
+    std::string wholeContent = readWholeFile(fileName);
 
-    std::ifstream in;
-    in.open(fileName);
-    if (in.is_open()) {
-        std::ostringstream ss;
-        ss << in.rdbuf();
-        wholeContent = ss.str();
-        in.close();
-
-        int found = wholeContent.find_last_not_of(binary);
-        if (found != std::string::npos) {
-            code = wholeContent.substr(found + 1);
-            bintree = wholeContent.erase(found + 1);
-        }
-    } else {
-        throw std::runtime_error("Unable to open the file!\n");
+    int found = wholeContent.find_last_not_of(BINARY_STRING);
+    if (found != std::string::npos) {
+        code = wholeContent.substr(found + 1);
+        bintree = wholeContent.erase(found + 1);
     }
 }
 
@@ -76,40 +70,29 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
  * @param std::string &code
  */
 void readFileForDecimalDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
-    std::string lastSize, codePart, wholeContent, decimal = " 0123456789", codeNumbers, sinlgeNum;
+    std::string lastSize, codePart, codeNumbers, singleNum;
+    std::string wholeContent = readWholeFile(fileName);
 
-    std::ifstream in;
-    in.open(fileName);
-    if (in.is_open()) {
-        std::ostringstream ss;
-        ss << in.rdbuf();
-        wholeContent = ss.str();
-        in.close();
-
-        int found = wholeContent.find_last_not_of(decimal);
-        if (found != std::string::npos) {
-            codeNumbers = wholeContent.substr(found + 1);
-            bintree = wholeContent.erase(found + 1);
-            lastSize = bintree.substr(0, 1);
-            bintree = bintree.substr(1);
-        }
-        while (!codeNumbers.empty()) {
-            int pos = codeNumbers.find(' ');
-            sinlgeNum = codeNumbers.substr(0, pos);
-            codeNumbers = codeNumbers.erase(0, pos + 1);
-            if (!codeNumbers.empty()) {
-                code += decimalToBinary(sinlgeNum);
-            }
-        }
-        sinlgeNum = decimalToBinary(sinlgeNum);
-        if (sinlgeNum.size() > (lastSize[0] - '0')) {
-            sinlgeNum = sinlgeNum.substr(8 - (lastSize[0] - '0'));
-        }
-        code += sinlgeNum;
-
-    } else {
-        throw std::runtime_error("Unable to open the file!\n");
+    int found = wholeContent.find_last_not_of(DECIMAL_STRING);
+    if (found != std::string::npos) {
+        codeNumbers = wholeContent.substr(found + 1);
+        bintree = wholeContent.erase(found + 1);
+        lastSize = bintree.substr(0, 1);
+        bintree = bintree.substr(1);
     }
+    while (!codeNumbers.empty()) {
+        int pos = codeNumbers.find(' ');
+        singleNum = codeNumbers.substr(0, pos);
+        codeNumbers = codeNumbers.erase(0, pos + 1);
+        if (!codeNumbers.empty()) {
+            code += decimalToBinary(singleNum);
+        }
+    }
+    singleNum = decimalToBinary(singleNum);
+    if (singleNum.size() > (lastSize[0] - '0')) {
+        singleNum = singleNum.substr(8 - (lastSize[0] - '0'));
+    }
+    code += singleNum;
 }
 
 /**
@@ -140,7 +123,8 @@ void saveStringToFile(const std::string &fileName, const std::string &forStorage
 void compareSizes(const std::string &originalContent, const std::string &encoded) {
     std::cout << std::fixed << std::showpoint;
     std::cout << std::setprecision(2);
-    std::cout << "\nThe original file size is " << 8 * originalContent.size() << " bits and the compressed file will be "
+    std::cout << "\nThe original file size is " << 8 * originalContent.size()
+              << " bits and the compressed file will be "
               << encoded.size() << " bites. That means the compresssed file is "
               << encoded.size() / ((float) 8 * originalContent.size() / 100) << "% of the original one!\n\n";
 }

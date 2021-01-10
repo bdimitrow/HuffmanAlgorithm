@@ -222,6 +222,26 @@ void debug(const std::string &fileName) {
     }
 }
 
+void menuBranching(const int &choice) {
+    if (choice == 1) {
+        encode(true);
+    } else if (choice == 2) {
+        decode(true);
+    } else if (choice == 3) {
+        std::string fileDebugName;
+        std::cout << "Enter the name of the file to be debugged: ";
+        std::cin >> fileDebugName;
+        debug(fileDebugName);
+    } else if (choice == 4) {
+        std::cout << "Thank you for using the application! \n";
+        return exit(EXIT_SUCCESS);
+    } else if (choice == 5) {
+        encode(false);
+    } else {
+        decode(false);
+    }
+}
+
 void menu() {
     std::cout << "Welcome!\n";
     std::cout << "Please choose an action!\n"
@@ -239,25 +259,7 @@ void menu() {
             std::cin.clear();                            // reset any error flags
             std::cin.ignore(10000, '\n');       // ignore any characters in the input buffer
         } else if (choice >= 1 && choice <= 6) {
-            if (choice == 1) {
-                encode(true);
-
-            } else if (choice == 2) {
-                decode(true);
-
-            } else if (choice == 3) {
-                std::string fileDebugName;
-                std::cout << "Enter the name of the file to be debugged: ";
-                std::cin >> fileDebugName;
-                debug(fileDebugName);
-            } else if (choice == 4) {
-                std::cout << "Thank you for using the application! \n";
-                return exit(EXIT_SUCCESS);
-            } else if (choice == 5) {
-                encode(false);
-            } else {
-                decode(false);
-            }
+            menuBranching(choice);
         }
     } while (choice != 4);
 }
