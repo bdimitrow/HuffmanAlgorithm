@@ -60,8 +60,8 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
 
 /**
  * @fn void readFileForDecimalDecompress(const std::string &fileName, std::string &bintree, std::string &code)
- * This function is used for decimal decompression. The file with name 'fileName' is opened if there such a file.
- * The file content is extracted into a string 'wholeContent'. This stirng is splitted into three parts. 'lastSize' which
+ * This function is used for decimal decompression. The file with name 'fileName' is opened if there is such a file.
+ * The file content is extracted into a string 'wholeContent'. This stirng is splitted into three parts. 'lastNumberSize' which
  * denotes the number of bits the last number should be. Then comes the information needed for rebuilding the tree. And the
  * 'codeNumbers' part which is changed from decimal to binary sequence('code'). The 'bintree' and 'code' are returned as
  * reference arguments.
@@ -70,14 +70,14 @@ void readFileForDecompress(const std::string &fileName, std::string &bintree, st
  * @param std::string &code
  */
 void readFileForDecimalDecompress(const std::string &fileName, std::string &bintree, std::string &code) {
-    std::string lastSize, codePart, codeNumbers, singleNum;
+    std::string lastNumberSize, codePart, codeNumbers, singleNum;
     std::string wholeContent = readWholeFile(fileName);
 
     int found = wholeContent.find_last_not_of(DECIMAL_STRING);
     if (found != std::string::npos) {
         codeNumbers = wholeContent.substr(found + 1);
         bintree = wholeContent.erase(found + 1);
-        lastSize = bintree.substr(0, 1);
+        lastNumberSize = bintree.substr(0, 1);
         bintree = bintree.substr(1);
     }
     while (!codeNumbers.empty()) {
@@ -89,8 +89,8 @@ void readFileForDecimalDecompress(const std::string &fileName, std::string &bint
         }
     }
     singleNum = decimalToBinary(singleNum);
-    if (singleNum.size() > (lastSize[0] - '0')) {
-        singleNum = singleNum.substr(8 - (lastSize[0] - '0'));
+    if (singleNum.size() > (lastNumberSize[0] - '0')) {
+        singleNum = singleNum.substr(8 - (lastNumberSize[0] - '0'));
     }
     code += singleNum;
 }
