@@ -1,3 +1,3 @@
 # HuffmanAlgorithm
 
-Documentation [here](./html/index.html) # It works!
+Documentation can be found in ./html/index.html [here](./html/index.html)
